@@ -18,7 +18,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('register', {
     url: '/register',
-    templateUrl: './templates/register.html'
+    templateUrl: './templates/register.html',
+    controller: 'RegisterCtrl as register'
   });
 
   $stateProvider.state('admin', {
