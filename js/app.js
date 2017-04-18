@@ -1,7 +1,9 @@
 // App modules
 angular.module('app', [
   'ui.router',
-  'angular-storage'
+  'angular-storage',
+  'leaflet-directive',
+  'ngGeolocation'
 ]);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -25,6 +27,12 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
   $stateProvider.state('admin', {
     url: '/admin',
     templateUrl: './templates/admin.html'
+  });
+
+  $stateProvider.state('map', {
+    url: '/map',
+    templateUrl: './templates/map.html',
+    controller: 'MapCtrl as map'
   });
   $urlRouterProvider.otherwise(function ($injector) {
     $injector.get('$state').go('home');

@@ -15,7 +15,7 @@ angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthServi
       AuthService.setToken(res.data.token);
       $state.go('home');
     }).catch(function(error) {
-      register.error = "Error while trying to register you";
+      register.error = "Une erreur s'est passée. Essayez avec un autre nom d'utilisateur";
       $log.error(error);
     })
   }
