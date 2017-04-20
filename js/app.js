@@ -15,7 +15,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('home', {
     url: '',
-    templateUrl: './templates/main.html'
+    templateUrl: './templates/main.html',
+    controller: 'IssueCtrl as issue'
   });
 
   $stateProvider.state('register', {

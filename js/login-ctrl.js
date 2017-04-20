@@ -18,4 +18,18 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $h
       $log.error(error);
     })
   }
+
+  login.info = function info() {
+    delete login.error;
+    console.log('login info');
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
+    }).then(function(res) {
+      login.info = res.data;
+    }).catch(function(error) {
+      login.error = "Error";
+      $log.error(error);
+    })
+  }
 });

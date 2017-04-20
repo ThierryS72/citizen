@@ -1,3 +1,4 @@
+// Add auth token to all http queries
 angular.module('app').factory('AuthInterceptor', function(AuthService) {
   return {
     request: function (config) {
