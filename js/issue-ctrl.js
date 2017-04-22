@@ -1,5 +1,5 @@
 // Controller for actions around issues (list/search/add/modify)
-angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state) {
+angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService) {
   var issue = this;
 
   issue.listIssues = {};
@@ -13,6 +13,16 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues'
     }).then(function(res) {
       issue.listIssues = res.data;
+      // add markers on map
+      issue.listIssues.forEach(function(element) {
+        console.log('Add marker on map');
+        AppService.addMaker({
+          lat: element.location.coordinates[0],
+          lng: element.location.coordinates[1],
+          icon: AppService.getIcons['orangeIcon'],
+          message: element.description
+        });
+      });
     }).catch(function(error) {
       issue.error = "Error while trying to get issues";
       $log.error(error);
