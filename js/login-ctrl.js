@@ -12,6 +12,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $h
       data: login.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);
+      login.info();
       $state.go('home');
     }).catch(function(error) {
       login.error = "Error while trying to log you in";
@@ -26,7 +27,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $h
       method: 'GET',
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
     }).then(function(res) {
-      login.info = res.data;
+      login.infoMe = res.data;
     }).catch(function(error) {
       login.error = "Error";
       $log.error(error);

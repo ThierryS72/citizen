@@ -12,3 +12,37 @@
   ng-click="logout.disconnect()">
   Log out
 </button>
+<table ng-if="issue.listIssues.length > 0">
+  <tr>
+    <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+  </tr>
+  <tr class="issue" ng-repeat="issue in issue.listIssues">
+    <td>{{ issue.description }}</td>
+    <td>{{ issue.state }}</td>
+    <td>{{ issue.updatedAt }}</td>
+    <td>{{ issue.createdAt }}</td>
+    <td><img src="{{ issue.imageUrl }}" width="100" height="100"/></td>
+  </tr>
+</table>
+<h1>Déclarer une issue</h1>
+<form id="addIssue" name="issueForm">
+  <div class="form-group">
+    <label for="desc">Description</label>
+    <textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="text" class="form-control" id="image" ng-model="issue.newIssue.imageUrl">
+  </div>
+  <div class="form-group">
+    <label for="type">Type</label>
+    <input required list="type" class="form-control" ng-model="issue.newIssue.issueTypeHref">
+    <datalist id="type">
+      <option value="{{ type.href }}" ng-repeat="type in issue.types">{{ type.description }}</option>
+    </datalist>
+  </div>
+  <button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
+</form>
+<div class="alert alert-danger" ng-if="register.error">
+  {{register.error}}
+</div>
