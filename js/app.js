@@ -30,6 +30,20 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     templateUrl: './templates/admin.html'
   });
 
+  $stateProvider.state('citizen', {
+    url: '/citizen',
+    templateUrl: '/templates/citizen_app.html',
+    controller: 'CitizenPageController',
+    controllerAs: 'citizenPageCtrl'
+  });
+
+  $stateProvider.state('details', {
+    url: 'details/:id',
+    templateUrl: '/templates/issue-details.html',
+    controller: 'IssueDetailsPanelController',
+    controllerAs: 'issueDetailsPanelCtrl'
+  });
+
   $stateProvider.state('map', {
     url: '/map',
     templateUrl: './templates/map.html',
