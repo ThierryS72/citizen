@@ -81,12 +81,12 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
       listIssues = res.data;
       // add markers on map
       listIssues.forEach(function(element) {
-          console.log(element);
         markers.push({
           lat: element.location.coordinates[0],
           lng: element.location.coordinates[1],
           icon: mapIcons['orangeIcon'],
-          message: element.description
+          message: element.description,
+          draggable: true
         });
       });
     }).catch(function(error) {
@@ -109,8 +109,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },
         getListIssues: function() {
             issue.list();
-            //console.dir(markers);
-            return markers;
+            return listIssues;
         }
     };
 });

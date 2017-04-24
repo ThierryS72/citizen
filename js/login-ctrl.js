@@ -13,6 +13,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $h
     }).then(function(res) {
       AuthService.setToken(res.data.token);
       login.info();
+      console.dir(login.infoMe)
       $state.go('home');
     }).catch(function(error) {
       login.error = "Error while trying to log you in";

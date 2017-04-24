@@ -6,7 +6,7 @@ angular.module('app', [
   'ngGeolocation'
 ]);
 
-angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider) {
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: './templates/login.html',
@@ -14,7 +14,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
   });
 
   $stateProvider.state('home', {
-    url: '',
+    url: '/',
     templateUrl: './templates/main.html',
     controller: 'IssueCtrl as issue'
   });
@@ -32,16 +32,16 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('citizen', {
     url: '/citizen',
-    templateUrl: '/templates/citizen_app.html',
+    templateUrl: '/templates/citizen.html',
     controller: 'CitizenPageController',
     controllerAs: 'citizenPageCtrl'
   });
 
   $stateProvider.state('details', {
-    url: 'details/:id',
+    url: '/details/:id',
     templateUrl: '/templates/issue-details.html',
-    controller: 'IssueDetailsPanelController',
-    controllerAs: 'issueDetailsPanelCtrl'
+    controller: 'IssueCtrl',
+    controllerAs: 'issue'
   });
 
   $stateProvider.state('map', {
@@ -54,7 +54,10 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
   });
 
   $httpProvider.interceptors.push('AuthInterceptor');
-})
+
+  // Disable logging (noise from leaflet)
+  $logProvider.debugEnabled(false);
+});
 
 angular.module('app').run(function (AuthService, $rootScope, $state) {
   $rootScope.$on('$stateChangeStart', function (event, toState) {

@@ -1,8 +1,9 @@
- <div class="panel-body" id="dialog">
+ <main class="container">
+   <div class="panel-body" id="dialog">
     <div class="row">
       <div class="col-md-8" ng-class=''>
         <div class="alert clearfix" ng-class='{"alert-warning": issue.mine, "alert-success": !issue.mine}'>
-         {{ issue.id }}
+         Détail {{ issue.id }}
           <div class="pull-right">
             <small class="text-info">{{ issue.updatedAt | date: 'HH:MM' }}</small>
           </div>
@@ -10,3 +11,4 @@
       </div>
     </div>
   </div>
+ </main>

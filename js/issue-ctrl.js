@@ -6,40 +6,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.newIssue =  {};
 
   // Get issues (default paging is 20) - result in issue.listIssues
-  issue.listIssues = function list() {
+  issue.getListIssues = function list() {
     issue.listIssues = AppService.getListIssues();
   }
-  /*function connect() {
-    delete issue.error;
-    $http({
-      method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues'
-    }).then(function(res) {
-      issue.listIssues = res.data;
-      // add markers on map
-      issue.listIssues.forEach(function(element) {
-        console.log('Add marker on map');
-        AppService.addMarker({
-          lat: element.location.coordinates[0],
-          lng: element.location.coordinates[1],
-          icon: AppService.getIcons['orangeIcon'],
-          message: element.description
-        });
-      });
-    }).catch(function(error) {
-      issue.error = "Error while trying to get issues";
-      $log.error(error);
-    })
-  }*/
-
-  /* Get all issues Types - result in issue.type
-  {
-    "href": "/api/issueTypes/54d8ae183fd30364605c81b1",
-    "id": "54d8ae183fd30364605c81b1",
-    "name": "broken-streetlight",
-    "description": "Area is poorly lit",
-  }
-  */
+  
   issue.type = function type() {
     delete issue.error;
     $http({
@@ -54,6 +24,20 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   }
 
   issue.type();
+
+  issue.details = function details(id) {
+    console.log('issue detail '+id);
+    delete issue.error;
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/58fdc70c25c1380011b04885'
+    }).then(function(res) {
+      issue.detail = res.data;
+    }).catch(function(error) {
+      issue.error = "Error while trying to get issue detail";
+      $log.error(error);
+    })
+  }
 
   // add an issue - todo : get coordinates
   issue.addIssue = function addIssue() {

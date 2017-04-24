@@ -1,95 +1,71 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-    <a class="navbar-brand" ui-sref="citizen">Citizen App</a>
-    <ul class="nav navbar-nav">
-        <li><a href="#">How to use the app</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
-    <div class="collpase navbar-collapse navbar-right">
-        <ul class="nav navbar-nav">
-        <li class="active" ng-controller="LoginCtrl as login" ng-click="login.info()"><a href="#">My Account</a></li>
-        <li><a href="#">Setting</a></li>
-        </ul>
-        <a class="btn btn-warning navbar-btn" ng-controller="LogoutCtrl as logout" ng-click="logout.disconnect()">Log out</a>
-    </div>
-    </div>
-</nav>
-
 <main class="container">
-<h1>Main page {{login.infoMe.name}}</h1>
-<button class="btn btn-info" ng-click="issue.listIssues()">Lister</button>
-<button 
-  class="btn btn-default"
-  ng-controller="LoginCtrl as login"
-  ng-click="login.info()">
-  Info me
-</button>
-<div class="row" ng-if="(issue.listIssues.length > 0) && (login.infoMe.roles == staff)">
-    <section class="col-md-4">
-        <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 5">
-        <a class="list-group-item">
-            <div class="alert alert-warning">
-            <span class="small pull-right">Last update: {{ issue.updatedAt }}</span>
-            <h4 class="list-group-item-heading">Issue</h4>
-            <p class="list-group-item-text">{{ issue.description }}</p>
-            <img src="{{ issue.imageUrl }}" width="50" height="50"/>
-            </div>
-        </a>
-        <a ui-sref="details({ id:issue.id })" ui-sref-active="active">details</a>
-        </div>
-    </section>
-    <section class="col-md-8" ng-controller="MapCtrl as map">
-      <leaflet width="100%" height="480px" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
-    </section>
-</div>
+  <button class="btn btn-info" ng-click="issue.getListIssues()">Lister</button>
+  <div class="row" ng-if="(issue.listIssues.length > 0) && (login.infoMe.roles == staff)">
+      <section class="col-md-4">
+          <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 5">
+          <a class="list-group-item">
+              <div class="alert alert-warning">
+              <span class="small pull-right">Last update: {{ issue.updatedAt }}</span>
+              <h4 class="list-group-item-heading">Issue</h4>
+              <p class="list-group-item-text">{{ issue.description }}</p>
+              <img src="{{ issue.imageUrl }}" width="50" height="50"/>
+              </div>
+          </a>
+          <a ui-sref="details({ id:issue.id })" ui-sref-active="active">details</a>
+          </div>
+      </section>
+      <section class="col-md-8" ng-controller="MapCtrl as map">
+        <leaflet width="100%" height="480px" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
+      </section>
+  </div>
 
-<div class="row">
-<table class="table
-table-bordered
-table-striped
-table-hover"
-ng-if="issue.listIssues.length > 0">
-  <tr>
-    <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
-  </tr>
-  <tr class="issue" ng-repeat="issue in issue.listIssues">
-    <td>{{ issue.description }}</td>
-    <td>{{ issue.state }}</td>
-    <td>{{ issue.updatedAt }}</td>
-    <td>{{ issue.createdAt }}</td>
-    <td><img src="{{ issue.imageUrl }}" width="100" height="100"/></td>
-  </tr>
-</table>
-<h1>Déclarer une issue</h1>
-<form id="addIssue" name="issueForm">
-  <div class="form-group">
-    <label for="desc">Description</label>
-    <textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description"></textarea>
+  <div class="row">
+    <table class="table
+    table-bordered
+    table-striped
+    table-hover"
+    ng-if="issue.listIssues.length > 0">
+      <tr>
+        <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+      </tr>
+      <tr class="issue" ng-repeat="issue in issue.listIssues">
+        <td>{{ issue.description }}</td>
+        <td>{{ issue.state }}</td>
+        <td>{{ issue.updatedAt }}</td>
+        <td>{{ issue.createdAt }}</td>
+        <td><img src="{{ issue.imageUrl }}" width="100" height="100"/></td>
+      </tr>
+    </table>
+    <h1>Déclarer une issue</h1>
+    <form id="addIssue" name="issueForm">
+      <div class="form-group">
+        <label for="desc">Description</label>
+        <textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="text" class="form-control" id="image" ng-model="issue.newIssue.imageUrl">
+      </div>
+      <div class="form-group">
+        <label for="type">Type</label>
+        <input required list="type" class="form-control" ng-model="issue.newIssue.issueTypeHref">
+        <datalist id="type">
+          <option value="{{ type.href }}" ng-repeat="type in issue.types">{{ type.description }}</option>
+        </datalist>
+      </div>
+      <button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
+    </form>
+    <div class="alert alert-danger" ng-if="register.error">
+      {{register.error}}
+    </div>
   </div>
-  <div class="form-group">
-    <label for="image">Image</label>
-    <input type="text" class="form-control" id="image" ng-model="issue.newIssue.imageUrl">
-  </div>
-  <div class="form-group">
-    <label for="type">Type</label>
-    <input required list="type" class="form-control" ng-model="issue.newIssue.issueTypeHref">
-    <datalist id="type">
-      <option value="{{ type.href }}" ng-repeat="type in issue.types">{{ type.description }}</option>
-    </datalist>
-  </div>
-  <button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
-</form>
-<div class="alert alert-danger" ng-if="register.error">
-  {{register.error}}
-</div>
-</div>
 </main>
-    
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-    <button class="btn btn-default navbar-btn">Privacy &amp; Terms</button>
-    <div class="navbar-right">
-        <p class="navbar-text">&copy; 2017 - Olivier Wenger & Thierry Sémon</p>
-    </div>
-    </div>
-</nav>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <button class="btn btn-default navbar-btn">Privacy &amp; Terms</button>
+        <div class="navbar-right">
+            <p class="navbar-text">&copy; 2017 - Olivier Wenger & Thierry Sémon</p>
+        </div>
+      </div>
+    </nav>
