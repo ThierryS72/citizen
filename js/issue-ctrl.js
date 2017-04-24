@@ -6,7 +6,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.newIssue =  {};
 
   // Get issues (default paging is 20) - result in issue.listIssues
-  issue.list = function connect() {
+  issue.listIssues = function list() {
+    issue.listIssues = AppService.getListIssues();
+  }
+  /*function connect() {
     delete issue.error;
     $http({
       method: 'GET',
@@ -16,7 +19,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       // add markers on map
       issue.listIssues.forEach(function(element) {
         console.log('Add marker on map');
-        AppService.addMaker({
+        AppService.addMarker({
           lat: element.location.coordinates[0],
           lng: element.location.coordinates[1],
           icon: AppService.getIcons['orangeIcon'],
@@ -27,7 +30,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       issue.error = "Error while trying to get issues";
       $log.error(error);
     })
-  }
+  }*/
 
   /* Get all issues Types - result in issue.type
   {

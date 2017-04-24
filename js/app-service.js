@@ -1,4 +1,4 @@
-angular.module('app').factory('AppService', function () {
+angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
       var mapIcons = {
        defaultIcon: {
         iconUrl: "assets/leaflet/images/marker-icon.png",
@@ -66,16 +66,51 @@ angular.module('app').factory('AppService', function () {
     }
   ]
 
+    var issue = this;
+
+  var listIssues = {};
+  issue.newIssue =  {};
+
+  // Get issues (default paging is 20) - result in issue.listIssues
+  issue.list = function list() {
+    delete issue.error;
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues'
+    }).then(function(res) {
+      listIssues = res.data;
+      // add markers on map
+      listIssues.forEach(function(element) {
+          console.log(element);
+        markers.push({
+          lat: element.location.coordinates[0],
+          lng: element.location.coordinates[1],
+          icon: mapIcons['orangeIcon'],
+          message: element.description
+        });
+      });
+    }).catch(function(error) {
+      issue.error = "Error while trying to get issues";
+      $log.error(error);
+    })
+  }
+
     return {
         getMarkers: function () {
             return markers;
         },
-        addMaker: function(value) {
+        addMarker: function(value) {
+            console.log('addMarker via service');
             markers.push = value;
         },
         getIcons: function () {
             console.log('getIcons : ' + mapIcons);
             return mapIcons;
         },
+        getListIssues: function() {
+            issue.list();
+            //console.dir(markers);
+            return markers;
+        }
     };
 });

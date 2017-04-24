@@ -1,3 +1,4 @@
+// inject token auth (Bearer) on all http request
 angular.module('app').factory('AuthService', function AuthService(store) {
   var service = {
     token: store.get('auth-token'),
