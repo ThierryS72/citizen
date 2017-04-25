@@ -3,7 +3,7 @@
   <div class="row" ng-if="(issue.listIssues.length > 0) && (login.infoMe.roles == staff)">
       <section class="col-md-4">
           <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 5">
-          <a class="list-group-item">
+          <a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
               <div class="alert alert-warning">
               <span class="small pull-right">Last update: {{ issue.updatedAt }}</span>
               <h4 class="list-group-item-heading">Issue</h4>
@@ -11,7 +11,6 @@
               <img src="{{ issue.imageUrl }}" width="50" height="50"/>
               </div>
           </a>
-          <a ui-sref="details({ id:issue.id })" ui-sref-active="active">details</a>
           </div>
       </section>
       <section class="col-md-8" ng-controller="MapCtrl as map">
