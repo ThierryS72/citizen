@@ -6,7 +6,7 @@ angular.module('app', [
   'ngGeolocation'
 ]);
 
-angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider) {
+angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider, $locationProvider) {
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: './templates/login.html',
@@ -72,6 +72,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   // Disable logging (noise from leaflet)
   $logProvider.debugEnabled(false);
+
+  $locationProvider.html5Mode(true);
 });
 
 angular.module('app').run(function (AuthService, $rootScope, $state) {

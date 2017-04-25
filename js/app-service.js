@@ -47,7 +47,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         shadowAnchor: [4, 62],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     }
-};
+  };
     
     var markers = [
     {
@@ -66,7 +66,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     }
   ]
 
-    var issue = this;
+  var issue = this;
 
   var listIssues = {};
   issue.newIssue =  {};
@@ -95,6 +95,24 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     })
   }
 
+  var userInfo = {};
+  var login = this;
+
+  getInfoMe = function info() {
+    delete login.error;
+    console.log('login info');
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
+    }).then(function(res) {
+      login.infoMe = res.data;
+      console.dir(res.data);
+    }).catch(function(error) {
+      login.error = "Error";
+      $log.error(error);
+    })
+  }
+
     return {
         getMarkers: function () {
             return markers;
@@ -110,6 +128,12 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         getListIssues: function() {
             issue.list();
             return listIssues;
+        },
+        getUserInfo: function(info) {
+          getInfoMe();
+          console.log('service get user info');
+          console.dir(userInfo);
+          return userInfo;
         }
     };
 });

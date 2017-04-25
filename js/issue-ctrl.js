@@ -1,5 +1,5 @@
 // Controller for actions around issues (list/search/add/modify)
-angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService) {
+angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams) {
   var issue = this;
 
   issue.listIssues = {};
@@ -8,7 +8,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     issue.listIssues = AppService.getListIssues();
+    console.log('List issue');
   }
+
+  // get info about me
+  var login = {};
+  login.infoMe = AppService.getUserInfo();
+  console.dir(login.infoMe);
   
   issue.type = function type() {
     delete issue.error;
@@ -25,6 +31,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   issue.type();
 
+  // Id for issue detail view
+  var id = $stateParams.id;
+  console.log('issue id : '+id);
+
   issue.details = function details(id) {
     console.log('issue detail '+id);
     delete issue.error;
@@ -38,6 +48,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       $log.error(error);
     })
   }
+
+  issue.details(id);
 
   // add an issue - todo : get coordinates
   issue.addIssue = function addIssue() {

@@ -1,4 +1,4 @@
-angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $http, $log, $state) {
+angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state) {
   var login = this;
 
   login.user = {};
@@ -21,17 +21,5 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AuthService, $h
     })
   }
 
-  login.info = function info() {
-    delete login.error;
-    console.log('login info');
-    $http({
-      method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
-    }).then(function(res) {
-      login.infoMe = res.data;
-    }).catch(function(error) {
-      login.error = "Error";
-      $log.error(error);
-    })
-  }
+  login.info = AppService.getUserInfo();
 });

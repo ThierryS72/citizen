@@ -2,10 +2,10 @@
    <div class="panel-body" id="dialog">
     <div class="row">
       <div class="col-md-8" ng-class=''>
-        <div class="alert clearfix" ng-class='{"alert-warning": issue.mine, "alert-success": !issue.mine}'>
-         Détail {{ id }}
+        <div class="alert clearfix" ng-class='{"alert-warning": issue.detail.mine, "alert-success": !issue.detail.mine}'>
+         Détail {{ issue.detail.id }}
           <div class="pull-right">
-            <small class="text-info">{{ issue.updatedAt | date: 'HH:MM' }}</small>
+            <small class="text-info">{{ issue.detail.updatedAt | date: 'HH:MM' }}</small>
           </div>
         </div>
       </div>
@@ -20,11 +20,11 @@
           <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
         </tr>
         <tr>
-          <td>{{ issue.description }}</td>
-          <td>{{ issue.state }}</td>
-          <td>{{ issue.updatedAt }}</td>
-          <td>{{ issue.createdAt }}</td>
-          <td><img src="{{ issue.imageUrl }}" width="100" height="100"/></td>
+          <td>{{ issue.detail.description }}</td>
+          <td>{{ issue.detail.state }}</td>
+          <td>{{ issue.detail.updatedAt }}</td>
+          <td>{{ issue.detail.createdAt }}</td>
+          <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
         </tr>
       </table>
   </div>
