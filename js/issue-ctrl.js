@@ -7,8 +7,30 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
-    issue.listIssues = AppService.getListIssues();
-    console.log('List issue');
+    console.log('issueCtrl get list issue');
+    delete issue.error;
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues'
+    }).then(function(res) {
+      issue.listIssues = res.data;
+      console.dir(res.data);
+      // add markers on map
+     issue. listIssues.forEach(function(element) {
+        AppService.addMarker({
+          lat: element.location.coordinates[0],
+          lng: element.location.coordinates[1],
+          icon: AppService.getIcons('orangeIcon'),
+          message: element.description,
+          draggable: true
+        });
+        // Push issues in AppService
+        AppService.setIssues(issue.listIssues);
+      });
+    }).catch(function(error) {
+      issue.error = "Error while trying to get issues";
+      $log.error(error);
+    })
   }
 
   // get info about me
@@ -33,7 +55,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // Id for issue detail view
   var id = $stateParams.id;
-  console.log('issue id : '+id);
 
   issue.details = function details(id) {
     console.log('issue detail '+id);
@@ -72,4 +93,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       $log.error(error);
     })
   }
+
+  issue.getListIssues();
 });
