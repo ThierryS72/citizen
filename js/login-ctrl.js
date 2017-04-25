@@ -12,14 +12,12 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
       data: login.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);
-      login.info();
+      login.info = AppService.getUserInfo();
       console.dir(login.infoMe)
       $state.go('home');
     }).catch(function(error) {
       login.error = "Error while trying to log you in";
       $log.error(error);
     })
-  }
-
-  login.info = AppService.getUserInfo();
+  }  
 });
