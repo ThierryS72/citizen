@@ -32,14 +32,29 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('citizen', {
     url: '/citizen',
-    templateUrl: '/templates/citizen.html',
+    templateUrl: './templates/citizen.html',
     controller: 'CitizenPageController',
     controllerAs: 'citizenPageCtrl'
   });
 
+  $stateProvider.state('how-to-use', {
+    url: '/how-to-use',
+    templateUrl: './templates/how-to-use.html',
+    controller: 'HowToUsePageController',
+    controllerAs: 'howToUsePageCtrl'
+  });
+
+  $stateProvider.state('about', {
+    url: '/about',
+    templateUrl: './templates/about.html',
+    controller: 'AboutPageController',
+    controllerAs: 'aboutPageCtrl'
+  });
+
+
   $stateProvider.state('details', {
     url: '/details/:id',
-    templateUrl: '/templates/issue-details.html',
+    templateUrl: './templates/issue-details.html',
     controller: 'IssueCtrl',
     controllerAs: 'issue'
   });

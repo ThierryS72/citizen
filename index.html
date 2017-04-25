@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Angular Auth Starter</title>
+    <title>Citizen App</title>
 
     <!-- Third-party styles -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -21,14 +21,17 @@
       <div class="container">
       <a class="navbar-brand" ui-sref="citizen">Citizen App</a>
       <ul class="nav navbar-nav">
-          <li><a href="#">How to use the app</a></li>
-          <li><a href="#">About</a></li>
+          <li><a ui-sref="how-to-use">How to use the app</a></li>
+          <li><a ui-sref="about">About</a></li>
       </ul>
       <div class="collpase navbar-collapse navbar-right">
           <ul class="nav navbar-nav">
-          <li class="active" ng-controller="LoginCtrl as login" ng-click="login.info()"><a href="#">My Account</a></li>
+          <li><a ui-sref="register">Register</a></li>
+          <li class="active" ng-controller="LoginCtrl as login" ng-click="login.info()"><a href="#">My Account</a></li>          </li>
           <li><a href="#">Setting</a></li>
           </ul>
+          <!--if ng-if="login.user == true" -->
+          <a class="btn btn-warning navbar-btn" ui-sref="login">Log in</a>
           <a class="btn btn-warning navbar-btn" ng-controller="LogoutCtrl as logout" ng-click="logout.disconnect()">Log out</a>
       </div>
       </div>
@@ -51,6 +54,8 @@
     <script type="text/javascript" src="js/map-ctrl.js"></script>
     <script type="text/javascript" src="js/issue-ctrl.js"></script>
     <script type="text/javascript" src="js/citizen-ctrl.js"></script>
+    <script type="text/javascript" src="js/how-to-use-ctrl.js"></script>
+    <script type="text/javascript" src="js/about-ctrl.js"></script>
     <script type="text/javascript" src="js/app-service.js"></script>
     <script type="text/javascript" src="assets/leaflet/leaflet.js"></script>
     <script type="text/javascript" src="assets/js/angular-leaflet-directive.min.js"></script>
