@@ -13,6 +13,7 @@ angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthServi
       data: register.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);
+      register.newAccount = true;
       $state.go('home');
     }).catch(function(error) {
       register.error = "Une erreur s'est passée. Essayez avec un autre nom d'utilisateur";
