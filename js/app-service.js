@@ -1,6 +1,6 @@
 angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
-      var mapIcons = {
-       defaultIcon: {
+  var mapIcons = {
+    defaultIcon: {
         iconUrl: "assets/leaflet/images/marker-icon.png",
         shadowUrl: "assets/leaflet/images/marker-shadow.png",
         iconSize: [25, 41],
@@ -49,7 +49,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     }
   };
     
-    var markers = [
+    var markers = [];/*
     {
       lat: 46.781547,
       lng: 6.640351,
@@ -57,14 +57,13 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     }, {
       lat: 46.781058,
       lng: 6.647179,
-      icon: mapIcons.myIcon,
-      draggable: true
+      icon: mapIcons.myIcon
     }, {
       lat: 46.778246,
       lng: 6.641490,
       icon: mapIcons.defaultIcon
     }
-  ]
+  ]*/
 
   var issue = this;
 
@@ -74,39 +73,26 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   var userInfo = {};
   var login = this;
 
-  getInfoMe = function info() {
-    delete login.error;
-    console.log('login info');
-    $http({
-      method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
-    }).then(function(res) {
-      login.infoMe = res.data;
-      console.dir(res.data);
-    }).catch(function(error) {
-      login.error = "Error";
-      $log.error(error);
-    })
-  }
-
     return {
         getMarkers: function () {
             return markers;
         },
         addMarker: function(value) {
-            markers.push = value;
+            markers.push(value);
         },
-        getIcons: function (icon) {
-            return mapIcons[icon];
+        getIcons: function () {
+            return mapIcons;
         },
         setIssues: function(issues) {
             listIssues = issues;
         },
         getUserInfo: function(info) {
-          getInfoMe();
-          console.log('service get user info');
+          console.log('getUserInfo service :');
           console.dir(userInfo);
           return userInfo;
+        },
+        setUserInfo: function(info) {
+          userInfo = info;
         }
     };
 });

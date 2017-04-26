@@ -1,4 +1,4 @@
-angular.module('app').controller('MapCtrl', function($scope,$geolocation, AppService) {
+angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppService) {
   var map = this;
   map.defaults = {
     //doubleClickZoom: false, // disable the double-click zoom
@@ -14,8 +14,12 @@ angular.module('app').controller('MapCtrl', function($scope,$geolocation, AppSer
     lng: 6.641183,
     zoom: 15 // This one is actually optional
   }
+  
+  mapIcons = AppService.getIcons();
 
   map.markers = AppService.getMarkers();
+  console.log('mapCtrl markers : ');
+  console.dir(map.markers);
 
   $scope.$on('leafletDirectiveMarker.dragend', function(event, args) {
     console.log(args.model); // Will give you the updated marker object
@@ -47,12 +51,15 @@ angular.module('app').controller('MapCtrl', function($scope,$geolocation, AppSer
 
   // get geoJson coordinates when click on map
   $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
-    console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng)
-    map.markers.push({
+    console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
+    AppService.addMarker({
       lat: wrap.leafletEvent.latlng.lat,
       lng: wrap.leafletEvent.latlng.lng,
-      icon: AppService.getIcons['greenIcon'],
-      message: "Ton problème"
+      icon: mapIcons['greenIcon'],
+      message: "Ton problème",
+      draggable: true
     });
+    //map.markers = AppService.getMarkers();
+    console.dir(map.markers);
   });
 });

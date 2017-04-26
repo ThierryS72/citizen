@@ -12,12 +12,27 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
       data: login.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);
-      login.info = AppService.getUserInfo();
-      console.dir(login.infoMe)
+      login.setInfoMe();
       $state.go('home');
     }).catch(function(error) {
       login.error = "Error while trying to log you in";
       $log.error(error);
     })
-  }  
+  } 
+
+  login.setInfoMe = function info() {
+    delete login.error;
+    console.log('login info');
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
+    }).then(function(res) {
+      login.infoMe = res.data;
+      console.dir(login.infoMe);
+      AppService.setUserInfo(login.infoMe);
+    }).catch(function(error) {
+      login.error = "Error";
+      $log.error(error);
+    })
+  } 
 });

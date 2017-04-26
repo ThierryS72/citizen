@@ -5,6 +5,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.listIssues = {};
   issue.newIssue =  {};
 
+  mapIcons = AppService.getIcons();
+
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     console.log('issueCtrl get list issue');
@@ -16,14 +18,14 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       issue.listIssues = res.data;
       console.dir(res.data);
       // add markers on map
-     issue. listIssues.forEach(function(element) {
+     issue.listIssues.forEach(function(element) {
         AppService.addMarker({
-          lat: element.location.coordinates[0],
-          lng: element.location.coordinates[1],
-          icon: AppService.getIcons('orangeIcon'),
-          message: element.description,
-          draggable: true
+          lat: element.location.coordinates[1],
+          lng: element.location.coordinates[0],
+          icon: mapIcons['orangeIcon'],
+          message: element.description
         });
+        
         // Push issues in AppService
         AppService.setIssues(issue.listIssues);
       });
@@ -36,6 +38,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // get info about me
   var login = {};
   login.infoMe = AppService.getUserInfo();
+  console.log('infoMe : ');
   console.dir(login.infoMe);
   
   issue.type = function type() {
