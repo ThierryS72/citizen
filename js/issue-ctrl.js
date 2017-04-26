@@ -4,6 +4,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   issue.listIssues = {};
   issue.newIssue =  {};
+  issue.newComment = {};
 
   mapIcons = AppService.getIcons();
 
@@ -60,11 +61,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   var id = $stateParams.id;
 
   issue.details = function details(id) {
-    console.log('issue detail '+id);
     delete issue.error;
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/58fdc70c25c1380011b04885'
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
     }).then(function(res) {
       issue.detail = res.data;
     }).catch(function(error) {
@@ -73,7 +73,48 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     })
   }
 
-  issue.details(id);
+  // Get issue comments
+  issue.listComments = {};
+  issue.comments = function comments(id) {
+    delete issue.error;
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments'
+    }).then(function(res) {
+      issue.listComments = res.data;
+      console.log('issue comments '+id+' nb : '+issue.listComments.length);
+    }).catch(function(error) {
+      issue.error = "Error while trying to get issue comments";
+      $log.error(error);
+    })
+  }
+
+  // Post issue comments
+  issue.addComment = function addComment(id) {
+    if(issue.newComment.text != '')
+    {
+      delete issue.error;
+      issue.newComment.id = id;
+      console.log('add comment');
+      $http({
+        method: 'POST',
+        url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments',
+        data: issue.newComment
+      }).then(function(res) {
+        issue.comments(id);
+        issue.newComment.text = '';
+      }).catch(function(error) {
+        issue.error = "Error while trying to add issue comment";
+        $log.error(error);
+      })
+    }
+  }
+
+  if(id != undefined)
+  {
+    issue.comments(id);
+    issue.details(id);
+  }
 
   // add an issue - todo : get coordinates
   issue.addIssue = function addIssue() {
