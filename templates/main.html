@@ -1,4 +1,20 @@
 <main class="container">
+  <div>
+   <ul class="nav nav-tabs">
+  <li class="active"><a href="#">Issues</a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu 1
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Submenu 1-1</a></li>
+      <li><a href="#">Submenu 1-2</a></li>
+      <li><a href="#">Submenu 1-3</a></li>
+    </ul>
+  </div>
+  </li>
+  <li><a ui-sref="issue">Rechercher issue</a></li>
+  <li><a ui-sref="report-issue">Déclarer un problème</a></li>
+  </ul>
   <div class="row" ng-if="(issue.listIssues.length > 0)">
       <section class="col-md-4">
           <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 5">
@@ -34,28 +50,6 @@
         <td><img src="{{ issue.imageUrl }}" width="100" height="100"/></td>
       </tr>
     </table>
-    <h1>Déclarer une issue</h1>
-    <form id="addIssue" name="issueForm">
-      <div class="form-group">
-        <label for="desc">Description</label>
-        <textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description">{{ login.infoMe.firstname }}</textarea>
-      </div>
-      <div class="form-group">
-        <label for="image">Image</label>
-        <input type="text" class="form-control" id="image" ng-model="issue.newIssue.imageUrl">
-      </div>
-      <div class="form-group">
-        <label for="type">Type</label>
-        <input required list="type" class="form-control" ng-model="issue.newIssue.issueTypeHref">
-        <datalist id="type">
-          <option value="{{ type.href }}" ng-repeat="type in issue.types">{{ type.description }}</option>
-        </datalist>
-      </div>
-      <button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
-    </form>
-    <div class="alert alert-danger" ng-if="register.error">
-      {{register.error}}
-    </div>
   </div>
 </main>
 

@@ -43,9 +43,9 @@
               <td>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
             </tr>
           </table>
-          <h3>Ajouter un commentaire</h3>
-          <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
-          <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
       </div>
+      <h3>Ajouter un commentaire</h3>
+      <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
+      <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
   </div>
  </main>
