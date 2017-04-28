@@ -55,7 +55,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     AppService.addMarker({
       lat: wrap.leafletEvent.latlng.lat,
       lng: wrap.leafletEvent.latlng.lng,
-      icon: mapIcons['greenIcon'],
+      icon: mapIcons['defaultIcon'],
       message: "Ton problème",
       draggable: true
     });

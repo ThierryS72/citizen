@@ -1,4 +1,5 @@
 angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
+  // icons for map's marker
   var mapIcons = {
     defaultIcon: {
         iconUrl: "assets/leaflet/images/marker-icon.png",
@@ -49,29 +50,22 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     }
   };
     
-    var markers = [];/*
-    {
-      lat: 46.781547,
-      lng: 6.640351,
-      icon: mapIcons.defaultIcon
-    }, {
-      lat: 46.781058,
-      lng: 6.647179,
-      icon: mapIcons.myIcon
-    }, {
-      lat: 46.778246,
-      lng: 6.641490,
-      icon: mapIcons.defaultIcon
-    }
-  ]*/
+  // markers is an array of markers for leaflet map
+  var markers = [];
 
   var issue = this;
 
+  // array for issues
   var listIssues = {};
+
+  // for new issue form
   issue.newIssue =  {};
 
   var userInfo = {};
   var login = this;
+
+  var newAccount = false;
+  var logged = false;
 
     return {
         getMarkers: function () {
@@ -84,7 +78,34 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
             return mapIcons;
         },
         setIssues: function(issues) {
+            markers = [];
             listIssues = issues;
+            listIssues.forEach(function(element) {
+                // mapIcon color belong to issue status
+                switch(element.state) {
+                    case 'new':
+                        mapIcon = mapIcons['greenIcon'];
+                        break;
+                    case 'inProgress':
+                        mapIcon = mapIcons['orangeIcon'];
+                        break;
+                    case 'rejected':
+                        mapIcon = mapIcons['redIcon'];
+                        break;
+                    case 'resolved':
+                        mapIcon = mapIcons['greenIcon'];
+                        break;
+                    default:
+                      mapIcon = mapIcons['defaultIcon'];
+                } 
+                console.dir(element);
+                markers.push({
+                    lat: element.location.coordinates[1],
+                    lng: element.location.coordinates[0],
+                    icon: mapIcon,
+                    message: element.description
+                });
+            });
         },
         getUserInfo: function(info) {
           console.log('getUserInfo service :');
@@ -93,6 +114,19 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },
         setUserInfo: function(info) {
           userInfo = info;
+        },
+        setNewAccount: function(status) {
+          newAccount = status;
+        },
+        isNewAccount: function() {
+          return newAccount;
+        },
+        setIsConnected: function(status) {
+          console.log('AppService setIsConnected : ' + status);
+          logged = status;
+        },
+        isConnected: function() {
+          return logged;
         }
     };
 });

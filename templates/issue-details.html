@@ -47,5 +47,22 @@
       <h3>Ajouter un commentaire</h3>
       <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
       <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
+            <div ng-if="(issue.listComments.length > 0)">
+        <h2>Actions sur ce problème</h2>
+          <table class="table
+          table-bordered
+          table-striped
+          table-hover"
+          ng-if="issue.Actions.length > 0">
+            <tr>
+              <td>Commentaire</td><td>Date</td><td>Status</td>
+            </tr>
+            <tr class="issue" ng-repeat="action in issue.Actions">
+              <td>{{ action.reason }}</td>
+              <td>{{ action.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{ action.type }}</td>
+            </tr>
+          </table>
+      </div>
   </div>
  </main>

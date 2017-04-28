@@ -18,7 +18,7 @@
       {{login.error}}
     </div>
     <div ng-controller="RegisterCtrl as register">
-      <h3 ng-if="(register.newAccount = true)">Tu peux te connecter à présent {{register.user.name}} !</h3>
+      <h3 ng-if="(register.newAccount)">Tu peux te connecter à présent {{register.user.name}} !</h3>
       <h2>S'enregistrer</h2>
       <form id="register" name="registerForm">
         <div class="form-group">

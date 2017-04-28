@@ -13,9 +13,13 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     }).then(function(res) {
       AuthService.setToken(res.data.token);
       login.setInfoMe();
+      AppService.setIsConnected(true);
+      login.isConnected = AppService.isConnected();
       $state.go('home');
     }).catch(function(error) {
       login.error = "Error while trying to log you in";
+      AppService.setIsConnected(false);
+      login.isConnected = AppService.isConnected();
       $log.error(error);
     })
   } 
@@ -35,4 +39,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
       $log.error(error);
     })
   } 
+
+  login.isConnected = AppService.isConnected();
+  console.log('login ctrl isConnected : ' + login.isConnected);
 });

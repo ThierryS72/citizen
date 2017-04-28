@@ -17,10 +17,11 @@
   </ul>
   <div class="row" ng-if="(issue.listIssues.length > 0)">
       <section class="col-md-4">
-          <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 5">
+          <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: 20">
           <a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
               <div class="alert alert-warning">
               <span class="small pull-right">Last update: {{ issue.updatedAt }}</span>
+              <span class="small">Status: {{ issue.state }}</span>
               <h4 class="list-group-item-heading">Issue</h4>
               <p class="list-group-item-text">{{ issue.description }}</p>
               <img src="{{ issue.imageUrl }}" width="50" height="50"/>

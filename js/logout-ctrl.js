@@ -3,6 +3,7 @@ angular.module('app').controller('LogoutCtrl', function LogoutCtrl(AuthService, 
 
   logout.disconnect = function() {
     AuthService.unsetToken();
+    AppService.setIsConnected(false);
     $state.go('login');
   }
 });

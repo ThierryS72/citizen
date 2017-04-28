@@ -20,13 +20,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       console.dir(res.data);
       // add markers on map
      issue.listIssues.forEach(function(element) {
-        AppService.addMarker({
-          lat: element.location.coordinates[1],
-          lng: element.location.coordinates[0],
-          icon: mapIcons['orangeIcon'],
-          message: element.description
-        });
-        
         // Push issues in AppService
         AppService.setIssues(issue.listIssues);
       });
@@ -89,6 +82,21 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     })
   }
 
+  // Get Issue actions
+  issue.listActions = function listActions(id) {
+    delete issue.error;
+    $http({
+      method: 'GET',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/actions'
+    }).then(function(res) {
+      issue.Actions = res.data;
+      console.log('issue actions '+id+' nb : '+issue.Actions.length);
+    }).catch(function(error) {
+      issue.error = "Error while trying to get issue actions";
+      $log.error(error);
+    })
+  }
+
   // Post issue comments
   issue.addComment = function addComment(id) {
     if(issue.newComment.text != '')
@@ -108,12 +116,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
         $log.error(error);
       })
     }
-  }
-
-  if(id != undefined)
-  {
-    issue.comments(id);
-    issue.details(id);
   }
 
   // add an issue - todo : get coordinates
@@ -137,6 +139,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       $log.error(error);
     })
   }
-
-  issue.getListIssues();
+  // for issue details
+  if(id != undefined)
+  {
+    issue.comments(id);
+    issue.details(id);
+    issue.listActions(id);
+  } else {
+    issue.getListIssues();
+  }
 });
