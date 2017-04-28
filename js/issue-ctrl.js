@@ -149,6 +149,28 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       $log.error(error);
     })
   }
+
+  // Admin functionnalities ! (role staff) **********************
+  issue.setStatus = function setStatus(IssueId,status,comment) {
+    delete issue.error;
+    issue.setAction = {
+      "reason": comment,
+      "type": status
+    };
+    $http({
+      method: 'POST',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+IssueId+'/actions',
+      data: issue.setAction
+    }).then(function(res) {
+      console.log('Statut de la tâche '+id+' : '+status+' raison : '+reason);
+    }).catch(function(error) {
+      issue.error = "Impossible de modifier le status d'une issue";
+      $log.error(error);
+    })
+  }
+
+  // END Admin functionnalities ! (role staff) **********************
+
   // for issue details
   if(id != undefined)
   {

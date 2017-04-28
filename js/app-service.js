@@ -97,8 +97,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                         break;
                     default:
                       mapIcon = mapIcons['defaultIcon'];
-                } 
-                console.dir(element);
+                }
                 markers.push({
                     lat: element.location.coordinates[1],
                     lng: element.location.coordinates[0],
