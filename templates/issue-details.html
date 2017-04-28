@@ -1,68 +1,66 @@
- <main class="container">
-   <div class="panel-body" id="dialog">
-    <div class="row">
-      <div class="col-md-8" ng-class=''>
-        <div class="alert clearfix" ng-class='{"alert-warning": issue.detail.mine, "alert-success": !issue.detail.mine}'>
-         Détail {{ issue.detail.id }}
-          <div class="pull-right">
-            <small class="text-info">{{ issue.detail.updatedAt | date: 'HH:MM' }}</small>
-          </div>
+  <div class="panel-body" id="dialog">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="alert clearfix" ng-class='{"alert-warning": issue.detail.mine, "alert-success": !issue.detail.mine}'>
+        Détail {{ issue.detail.id }}
+        <div class="pull-right">
+          <small class="text-info">{{ issue.detail.updatedAt | date: 'HH:MM' }}</small>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="row">
-      <table class="table
-      table-bordered
-      table-striped
-      table-hover">
-        <tr>
-          <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
-        </tr>
-        <tr>
-          <td>{{ issue.detail.description }}</td>
-          <td>{{ issue.detail.state }}</td>
-          <td>{{ issue.detail.updatedAt }}</td>
-          <td>{{ issue.detail.createdAt }}</td>
-          <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
-        </tr>
-      </table>
-      <div ng-if="(issue.listComments.length > 0)">
-        <h2>Commentaires</h2>
-          <table class="table
-          table-bordered
-          table-striped
-          table-hover"
-          ng-if="issue.listIssues.length > 0">
-            <tr>
-              <td>Commentaire</td><td>Date</td>
-            </tr>
-            <tr class="issue" ng-repeat="comment in issue.listComments">
-              <td>{{ comment.text }}</td>
-              <td>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
-            </tr>
-          </table>
-      </div>
-      <h3>Ajouter un commentaire</h3>
-      <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
-      <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
-            <div ng-if="(issue.listComments.length > 0)">
-        <h2>Actions sur ce problème</h2>
-          <table class="table
-          table-bordered
-          table-striped
-          table-hover"
-          ng-if="issue.Actions.length > 0">
-            <tr>
-              <td>Commentaire</td><td>Date</td><td>Status</td>
-            </tr>
-            <tr class="issue" ng-repeat="action in issue.Actions">
-              <td>{{ action.reason }}</td>
-              <td>{{ action.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
-              <td>{{ action.type }}</td>
-            </tr>
-          </table>
-      </div>
-  </div>
- </main>
+</div>
+
+<div class="row">
+    <table class="table
+    table-bordered
+    table-striped
+    table-hover">
+      <tr>
+        <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+      </tr>
+      <tr>
+        <td>{{ issue.detail.description }}</td>
+        <td>{{ issue.detail.state }}</td>
+        <td>{{ issue.detail.updatedAt }}</td>
+        <td>{{ issue.detail.createdAt }}</td>
+        <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
+      </tr>
+    </table>
+    <div ng-if="(issue.listComments.length > 0)">
+      <h2>Commentaires</h2>
+        <table class="table
+        table-bordered
+        table-striped
+        table-hover"
+        ng-if="issue.listIssues.length > 0">
+          <tr>
+            <td>Commentaire</td><td>Date</td>
+          </tr>
+          <tr class="issue" ng-repeat="comment in issue.listComments">
+            <td>{{ comment.text }}</td>
+            <td>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+          </tr>
+        </table>
+    </div>
+    <h3>Ajouter un commentaire</h3>
+    <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
+    <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
+    <div ng-if="issue.Actions.length > 0">
+      <h2>Actions sur ce problème</h2>
+        <table class="table
+        table-bordered
+        table-striped
+        table-hover"
+        >
+          <tr>
+            <td>Commentaire</td><td>Date</td><td>Status</td>
+          </tr>
+          <tr class="issue" ng-repeat="action in issue.Actions">
+            <td>{{ action.reason }}</td>
+            <td>{{ action.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{ action.type }}</td>
+          </tr>
+        </table>
+    </div>
+</div>

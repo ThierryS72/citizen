@@ -5,6 +5,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.listIssues = {};
   issue.newIssue =  {};
   issue.newComment = {};
+  issue.limit = 5; // Nb of issues displayed
 
   mapIcons = AppService.getIcons();
 
@@ -60,6 +61,15 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
     }).then(function(res) {
       issue.detail = res.data;
+      // center map todo
+      /*
+      map.center = {
+        // These are the coordinates for the center of Yverdon-les-Bains
+        lat: issue.detail.location.coordinates[1],
+        lng: issue.detail.location.coordinates[0],
+        zoom: 20 // This one is actually optional
+      }
+      */
     }).catch(function(error) {
       issue.error = "Error while trying to get issue detail";
       $log.error(error);
@@ -147,5 +157,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     issue.listActions(id);
   } else {
     issue.getListIssues();
+  }
+
+  issue.displayMore = function displayMore() {
+    issue.limit += 5;
+    console.log('display more : ' + issue.limit);
   }
 });

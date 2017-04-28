@@ -64,6 +64,13 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     templateUrl: './templates/map.html',
     controller: 'MapCtrl as map'
   });
+    
+  $stateProvider.state('report-issue', {
+    url: '/report',
+    templateUrl: './templates/report-issue.html',
+    controller: 'IssueCtrl as issue'
+  });
+
   $urlRouterProvider.otherwise(function ($injector) {
     $injector.get('$state').go('home');
   });
