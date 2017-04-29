@@ -107,7 +107,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                 });
             });
         },
-        getUserInfo: function(info) {
+        getUserInfo: function() {
           console.log('getUserInfo service :');
           console.dir(userInfo);
           return userInfo;

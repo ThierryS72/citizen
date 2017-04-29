@@ -35,10 +35,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // get info about me
   var login = {};
-  login.infoMe = AppService.getUserInfo();
-  console.log('infoMe : ');
-  console.dir(login.infoMe);
-  
+  login.infoMe = AppService.getUserInfo();  
   issue.type = function type() {
     delete issue.error;
     $http({
