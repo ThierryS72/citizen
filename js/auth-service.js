@@ -17,6 +17,15 @@ angular.module('app').factory('AuthService', function AuthService(store) {
     },
     getLogged: function() {
       return service.logged;
+    },
+    staff: store.get('auth-staff'),
+    setStaff: function(status) {
+      service.staff = status,
+      store.set('auth-staff', status),
+      console.log('setStaff : '+status)
+    },
+    getStaff: function() {
+      return service.staff;
     }
   };
 

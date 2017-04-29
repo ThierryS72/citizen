@@ -39,13 +39,26 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
     }).then(function(res) {
       login.infoMe = res.data;
-      console.dir(login.infoMe);
+      
+      login.isStaff();
       AppService.setUserInfo(login.infoMe);
     }).catch(function(error) {
       login.error = "Error";
       $log.error(error);
     })
   } 
+
+  // Check if it's a staff member
+  login.isStaff = function() {
+    AuthService.setStaff(false);
+    console.dir(login.infoMe);
+    login.infoMe.roles.forEach(function(role)
+    {
+      if(role == "staff")
+        AuthService.setStaff(true);
+    });
+  }
+
   login.isConnected = AuthService.getLogged();
   console.log('login ctrl isConnected : ' + login.isConnected);
 });
