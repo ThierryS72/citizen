@@ -9,6 +9,9 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   mapIcons = AppService.getIcons();
 
+  // AppService for sharing data between controllers
+  var service = AppService;
+
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     console.log('issueCtrl get list issue');

@@ -9,6 +9,14 @@ angular.module('app').factory('AuthService', function AuthService(store) {
     setToken: function(token) {
       service.token = token;
       store.set('auth-token', token);
+    },
+    logged: store.get('auth-logged'),
+    setLogged: function(status) {
+      service.logged = status,
+      store.set('auth-logged', status)
+    },
+    getLogged: function() {
+      return service.logged;
     }
   };
 

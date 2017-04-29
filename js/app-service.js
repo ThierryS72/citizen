@@ -1,4 +1,5 @@
 angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
+  var AppService = this;
   // icons for map's marker
   var mapIcons = {
     defaultIcon: {
@@ -113,6 +114,8 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },
         setUserInfo: function(info) {
           userInfo = info;
+          console.log('setUserInfo service : ');
+          console.dir(userInfo);
         },
         setNewAccount: function(status) {
           newAccount = status;
