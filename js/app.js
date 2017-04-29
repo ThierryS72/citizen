@@ -3,7 +3,8 @@ angular.module('app', [
   'ui.router',
   'angular-storage',
   'leaflet-directive',
-  'ngGeolocation'
+  'ngGeolocation',
+  'angularjs-dropdown-multiselect'
 ]);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider, $locationProvider) {
@@ -17,6 +18,17 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     url: '/',
     templateUrl: './templates/main.html',
     controller: 'IssueCtrl as issue'
+    /*
+    views: {
+      'register': {		
+        templateUrl: './templates/register.html',
+        controller: 'RegisterCtrl as register'
+	    },
+      'login': {		
+        templateUrl: './templates/login.html',
+        controller: 'LoginCtrl as login'
+	    }		
+    }*/
   });
 
   $stateProvider.state('register', {
