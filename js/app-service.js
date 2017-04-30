@@ -1,4 +1,5 @@
 angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
+  var AppService = this;
   // icons for map's marker
   var mapIcons = {
     defaultIcon: {
@@ -98,21 +99,25 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                     default:
                       mapIcon = mapIcons['defaultIcon'];
                 }
+                // add issue coordinates in marker list for leaflet map. message (tooltip) contains a link to issue detail
                 markers.push({
                     lat: element.location.coordinates[1],
                     lng: element.location.coordinates[0],
                     icon: mapIcon,
-                    message: element.description
+                    name: 'test',
+                    message: "<span><a href=\"details/"+element.id+"\" ng-click=\"map.clickMarker('"+element.id+"')\">"+element.description+"</a></span>"
                 });
             });
         },
-        getUserInfo: function(info) {
+        getUserInfo: function() {
           console.log('getUserInfo service :');
           console.dir(userInfo);
           return userInfo;
         },
         setUserInfo: function(info) {
           userInfo = info;
+          console.log('setUserInfo service : ');
+          console.dir(userInfo);
         },
         setNewAccount: function(status) {
           newAccount = status;

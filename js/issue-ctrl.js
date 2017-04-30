@@ -9,6 +9,9 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   mapIcons = AppService.getIcons();
 
+  // AppService for sharing data between controllers
+  var service = AppService;
+
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     console.log('issueCtrl get list issue');
@@ -32,10 +35,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // get info about me
   var login = {};
-  login.infoMe = AppService.getUserInfo();
-  console.log('infoMe : ');
-  console.dir(login.infoMe);
-  
+  login.infoMe = AppService.getUserInfo();  
   issue.type = function type() {
     delete issue.error;
     $http({
@@ -149,12 +149,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       $log.error(error);
     })
   }
-
+  issue.setActionComment = "";
   // Admin functionnalities ! (role staff) **********************
-  issue.setStatus = function setStatus(IssueId,status,comment) {
+  issue.setStatus = function setStatus(IssueId,status) {
+    console.log('Issue setStatus '+IssueId+' status : '+status+' comment : '+issue.setActionComment);
     delete issue.error;
     issue.setAction = {
-      "reason": comment,
+      "reason": issue.setActionComment,
       "type": status
     };
     $http({
@@ -162,7 +163,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+IssueId+'/actions',
       data: issue.setAction
     }).then(function(res) {
-      console.log('Statut de la tâche '+id+' : '+status+' raison : '+reason);
     }).catch(function(error) {
       issue.error = "Impossible de modifier le status d'une issue";
       $log.error(error);
@@ -185,4 +185,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     issue.limit += 5;
     console.log('display more : ' + issue.limit);
   }
+
+  issue.isStaff = AuthService.getStaff();
 });

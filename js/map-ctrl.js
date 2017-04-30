@@ -25,6 +25,11 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     console.log(args.model); // Will give you the updated marker object
   });
 
+  // event when click on a marker on map (doesn't work)
+  map.clickMarker = function clickMarker(id){
+    console.log('clickMarker : '+id);
+  }
+
   // Try to get coordinates of visitor and center map on it
   $geolocation.getCurrentPosition()
     .then(function (position) {
