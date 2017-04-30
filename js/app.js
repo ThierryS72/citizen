@@ -8,27 +8,27 @@ angular.module('app', [
 ]);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider, $locationProvider) {
+  
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: './templates/login.html',
     controller: 'LoginCtrl as login'
   });
-
+  
   $stateProvider.state('home', {
+    abstract: true,
     url: '/',
     templateUrl: './templates/main.html',
     controller: 'IssueCtrl as issue'
-    /*
-    views: {
-      'register': {		
-        templateUrl: './templates/register.html',
-        controller: 'RegisterCtrl as register'
-	    },
-      'login': {		
-        templateUrl: './templates/login.html',
-        controller: 'LoginCtrl as login'
-	    }		
-    }*/
+    // Note: abstract still needs a ui-view for its children to populate.
+    // You can simply add it inline here.
+    template: '<ui-view/>'
+  });
+
+  $stateProvider.state('home.map', {	
+        templateUrl: '/main.map.html',
+        controller: 'MapCtrl as map'		
+    }
   });
 
   $stateProvider.state('register', {
