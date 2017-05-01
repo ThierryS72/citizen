@@ -40,7 +40,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
   $stateProvider.state('admin', {
     url: '/admin',
     templateUrl: './templates/admin.html',
-    controller: 'IssueCtrl as issue'
+    controller: 'AdminCtrl as admin'
   });
 
   $stateProvider.state('citizen', {
