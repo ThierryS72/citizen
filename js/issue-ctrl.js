@@ -131,10 +131,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // add an issue - todo : get coordinates
   issue.addIssue = function addIssue() {
     delete issue.error;
+    // get coordinates from service
+    issue.coordinates = AppService.newIssueCoordinates;
+    console.dir(issue.coordinates);
     issue.newIssue.location = {
       "coordinates": [
-        6.6398,
-        46.7678
+        issue.coordinates.lng,
+        issue.coordinates.lat
       ],
       "type": "Point"
     };
@@ -144,6 +147,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',
       data: issue.newIssue
     }).then(function(res) {
+      $state.go('home');
     }).catch(function(error) {
       issue.error = "Impossible d'ajouter une issue";
       $log.error(error);

@@ -61,10 +61,13 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
       lat: wrap.leafletEvent.latlng.lat,
       lng: wrap.leafletEvent.latlng.lng,
       icon: mapIcons['defaultIcon'],
-      message: "Ton problème",
+      message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
       draggable: true
     });
-    //map.markers = AppService.getMarkers();
-    console.dir(map.markers);
+    //Add coordinates to AppService
+    AppService.newIssueCoordinates = {
+      lat:wrap.leafletEvent.latlng.lat,
+      lng:wrap.leafletEvent.latlng.lng
+    };
   });
 });

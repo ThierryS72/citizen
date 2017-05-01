@@ -68,6 +68,8 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   var newAccount = false;
   var logged = false;
 
+  var newIssueCoordinates = [];
+
     return {
         getMarkers: function () {
             return markers;
