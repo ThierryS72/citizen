@@ -1,1 +1,13 @@
 main { padding: 60px; }
+
+#map_layout {
+   position: absolute;
+   top:0;
+   left: 0;
+   margin: 0;
+   padding-top: 50px; 
+   width:  100%;
+   height: auto;
+   overflow: hidden;
+   z-index: -1;
+ }

@@ -4,7 +4,7 @@ angular.module('app', [
   'angular-storage',
   'leaflet-directive',
   'ngGeolocation',
-  'angularjs-dropdown-multiselect'
+  'angularjs-dropdown-multiselect',
 ]);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider, $locationProvider) {
@@ -16,18 +16,17 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
   });
   
   $stateProvider.state('home', {
-    abstract: true,
     url: '/',
     templateUrl: './templates/main.html',
-    controller: 'IssueCtrl as issue'
-    // Note: abstract still needs a ui-view for its children to populate.
-    // You can simply add it inline here.
-    template: '<ui-view/>'
+   controller: 'IssueCtrl as issue'
   });
 
-  $stateProvider.state('home.map', {	
-        templateUrl: '/main.map.html',
-        controller: 'MapCtrl as map'		
+  $stateProvider.state('home.map', {
+    views: {
+      map2: {
+       templateUrl: 'main.map.html',
+       controller: 'MapCtrl as map'
+      }
     }
   });
 
@@ -82,7 +81,8 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     templateUrl: './templates/report-issue.html',
     controller: 'IssueCtrl as issue'
   });
-
+  
+  
   $urlRouterProvider.otherwise(function ($injector) {
     $injector.get('$state').go('home');
   });
