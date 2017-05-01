@@ -1,2 +1,20 @@
-<h1>Admin</h1>
-<button class="btn btn-default" ng-controller="LogoutCtrl as logout" ng-click="logout.disconnect()">Log out</button>
+<h1>Administration</h1>
+<h2>Liste des problèmes</h2>
+<div class="row" ng-if="(issue.listIssues.length > 0)">
+    <section class="col-md-8">
+        <div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: issue.limit">
+        <a class="list-group-item" ui-sref-active="active">
+        <span class="small pull-right">Last update: {{ i.updatedAt }}</span>
+        <span class="small">Status: {{ i.state }}</span>
+        <h4 class="list-group-item-heading">Issue</h4>
+        <p class="list-group-item-text">{{ i.description }}</p>
+        <img src="{{ i.imageUrl }}" width="50" height="50"/>
+        <button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
+        <button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
+        <button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>
+        <button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
+        </a>
+        </div>
+        <button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
+    </section>
+</div>

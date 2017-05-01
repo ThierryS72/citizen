@@ -26,9 +26,10 @@
       </ul>
       <div class="collpase navbar-collapse navbar-right" ng-controller="LoginCtrl as login">
           <ul class="nav navbar-nav">
-          <li><a ui-sref="register">S'enregistrer</a></li>
-          <li class="active" ng-click="login.setInfoMe()"><a href="#">Mon compte {{login.infoMe.firstname}}</a></li>          </li>
-          <li><a href="#">Paramètres</a></li>
+          <li ng-if="(!login.isConnected)"><a ui-sref="register">S'enregistrer</a></li>
+          <li ng-if="(login.isStaff)"><a ui-sref="admin">Administration</a></li>
+          <li class="active" ng-click="login.setInfoMe()"><a ui-sref="citizen">Mon compte {{login.infoMe.firstname}}</a></li>          </li>
+          <li><a ui-sref="citizen">Paramètres</a></li>
           </ul>
           <a class="btn btn-warning navbar-btn" ui-sref="login" ng-if="(!login.isConnected)">Se connecter</a>
           <a class="btn btn-info navbar-btn" ui-sref="login" ng-click="login.disconnect()" ng-if="(login.isConnected)">Se déconnecter</a>

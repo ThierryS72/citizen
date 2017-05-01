@@ -112,14 +112,14 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
             });
         },
         getUserInfo: function() {
-          console.log('getUserInfo service :');
-          console.dir(userInfo);
+          //console.log('getUserInfo service :');
+          //console.dir(userInfo);
           return userInfo;
         },
         setUserInfo: function(info) {
           userInfo = info;
-          console.log('setUserInfo service : ');
-          console.dir(userInfo);
+          //console.log('setUserInfo service : ');
+          //console.dir(userInfo);
         },
         setNewAccount: function(status) {
           newAccount = status;
@@ -128,7 +128,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
           return newAccount;
         },
         setIsConnected: function(status) {
-          console.log('AppService setIsConnected : ' + status);
+          //console.log('AppService setIsConnected : ' + status);
           logged = status;
         },
         isConnected: function() {

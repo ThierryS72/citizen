@@ -72,7 +72,7 @@
           </div>
         <button ng-if="(issue.detail.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(issue.detail.id,'start')">Travailler</button>
         <button class="btn btn-primary btn-success" ng-click="issue.setStatus(issue.detail.id,'resolve')" ng-if="(issue.detail.state == 'inProgress')">Clôturer</button>
-        <button class="btn btn-primary btn-error" ng-click="issue.setStatus(issue.detail.id,'reject')" ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">Rejeter</button>
+        <button class="btn btn-primary btn-danger" ng-click="issue.setStatus(issue.detail.id,'reject')" ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">Rejeter</button>
       </div>
     </div>
 </div>

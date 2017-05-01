@@ -59,6 +59,26 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     });
   }
 
+  // Update profile
+  login.update = function() {
+    console.log('update profile');
+    login.updateData = {
+      firstname: login.infoMe.firstname,
+      lastname: login.infoMe.lastname,
+      phone: login.infoMe.phone
+    }
+    $http({
+      method: 'PATCH',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com'+login.infoMe.href,
+      data: login.updateData
+    }).then(function(res) {
+      AppService.setUserInfo(login.infoMe);
+    }).catch(function(error) {
+      login.error = "Error";
+      $log.error(error);
+    })
+  }
+
   login.isConnected = AuthService.getLogged();
-  console.log('login ctrl isConnected : ' + login.isConnected);
+  login.setInfoMe();
 });
