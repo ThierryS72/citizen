@@ -38,14 +38,14 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('admin', {
     url: '/admin',
-    templateUrl: './templates/admin.html'
+    templateUrl: './templates/admin.html',
+    controller: 'AdminCtrl as admin'
   });
 
   $stateProvider.state('citizen', {
     url: '/citizen',
     templateUrl: './templates/citizen.html',
-    controller: 'CitizenPageController',
-    controllerAs: 'citizenPageCtrl'
+    controller: 'LoginCtrl as login'
   });
 
   $stateProvider.state('how-to-use', {

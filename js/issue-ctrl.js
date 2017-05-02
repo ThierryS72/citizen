@@ -128,7 +128,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     }
   }
 
-  // add an issue - todo : get coordinates
+  // Add an issue with data from form and coordinates from service (through service)
   issue.addIssue = function addIssue() {
     delete issue.error;
     // get coordinates from service
@@ -155,6 +155,23 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   }
   issue.setActionComment = "";
   // Admin functionnalities ! (role staff) **********************
+  // Delete an issue
+  issue.deleteIssue = function deleteIssue(id) {
+    delete issue.error;
+    console.log('Delete an issue '+id);
+    $http({
+      method: 'DELETE',
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
+    }).then(function(res) {
+      // refresh list
+      issue.getListIssues();
+    }).catch(function(error) {
+      issue.error = "Impossible de supprimer une issue";
+      $log.error(error);
+    })
+  }
+
+  // Change issue status
   issue.setStatus = function setStatus(IssueId,status) {
     console.log('Issue setStatus '+IssueId+' status : '+status+' comment : '+issue.setActionComment);
     delete issue.error;
