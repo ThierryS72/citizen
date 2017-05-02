@@ -20,7 +20,7 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
         {id: 4, label: "Rejeté", value: "rejected", option: "S"} ];
 
     item.issuesFilterSelectAllSettings = {
-        //enableSearch: true, 
+        enableSearch: true, 
         showSelectAll: 
         true, 
         keyboardControls: 
