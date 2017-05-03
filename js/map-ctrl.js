@@ -1,5 +1,7 @@
 angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppService) {
   var map = this;
+  var newMarker = false;
+  map.issueId = 0;
   map.defaults = {
     //doubleClickZoom: false, // disable the double-click zoom
     //scrollWheelZoom: false, // disable zooming with the scroll
@@ -54,16 +56,25 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
       console.log(error);
     });
 
-  // get geoJson coordinates when click on map
+  // get geoJson coordinates when click on map and add/adjust a new marker
   $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
     console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
-    AppService.addMarker({
-      lat: wrap.leafletEvent.latlng.lat,
-      lng: wrap.leafletEvent.latlng.lng,
-      icon: mapIcons['defaultIcon'],
-      message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
-      draggable: true
-    });
+    // if a new marker is already set update the coordinates
+    // Todo : reset newMarker after finishing issue report
+    if(newMarker){
+      console.log('maker already exist. Adjust coords ' +map.issueId);
+      AppService.ajustMarkerCoords(map.issueId, wrap.leafletEvent.latlng.lat, wrap.leafletEvent.latlng.lng);
+    } else {
+      map.issueId = AppService.addMarker({
+        lat: wrap.leafletEvent.latlng.lat,
+        lng: wrap.leafletEvent.latlng.lng,
+        icon: mapIcons['defaultIcon'],
+        message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
+        draggable: true
+      });
+      console.log(map.issueId);
+      newMarker = true;
+    }
     //Add coordinates to AppService
     AppService.newIssueCoordinates = {
       lat:wrap.leafletEvent.latlng.lat,

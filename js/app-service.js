@@ -76,9 +76,15 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },
         addMarker: function(value) {
             markers.push(value);
+            return markers.length-1;
         },
         getIcons: function () {
             return mapIcons;
+        },
+        // Update coordinates of a marker (id)
+        ajustMarkerCoords: function(id, lat, lng){
+            markers[id].lat = lat;
+            markers[id].lng = lng;
         },
         setIssues: function(issues) {
             markers = [];
@@ -107,7 +113,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                     lng: element.location.coordinates[0],
                     icon: mapIcon,
                     name: 'test',
-                    message: "<span><a href=\"details/"+element.id+"\" ng-click=\"map.clickMarker('"+element.id+"')\">"+element.description+"</a></span>"
+                    message: "<span><a href=\"details/"+element.id+"\" ng-click=\"map.clickMarker('"+element.id+"')\">"+element.description+"<img src=\""+element.imageUrl+"\" width=\"50\" height=\"50\"/></a></span>"
                 });
             });
         },
