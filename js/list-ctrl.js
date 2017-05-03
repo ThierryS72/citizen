@@ -33,4 +33,17 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
                 return 'Type'; } 
             }, groupBy: 'option' 
     };
+
+    // Result of filter
+    $scope.$watch('issuesFiltered',
+    function() {
+        // callback function
+        var filtersType = [];
+        item.issuesFiltered.forEach(function (element){
+            console.log(element.value);
+            filtersType.push(element.value);
+            AppService.setFiltersType(filtersType);
+        });
+    }, 
+    true);
 });

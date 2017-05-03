@@ -1,5 +1,5 @@
 // Controller for actions around issues (list/search/add/modify)
-angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams) {
+angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams, $scope) {
   var issue = this;
 
   issue.listIssues = {};
@@ -12,13 +12,24 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // AppService for sharing data between controllers
   var service = AppService;
 
+  issue.filtersType = AppService.getFiltersType();
+
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     console.log('issueCtrl get list issue');
+    
+    var qData = {};
+    qData.pageSize = 50;
+    qData.filter = issue.filtersType;
+    issue.filtersType.forEach(function (f){
+      console.log(f);
+      
+    });
     delete issue.error;
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues'
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',
+      params: qData
     }).then(function(res) {
       issue.listIssues = res.data;
       console.dir(res.data);
@@ -147,6 +158,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',
       data: issue.newIssue
     }).then(function(res) {
+      AppService.newMarker = false;
       $state.go('home');
     }).catch(function(error) {
       issue.error = "Impossible d'ajouter une issue";
@@ -206,6 +218,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     issue.limit += 5;
     console.log('display more : ' + issue.limit);
   }
+
+  $scope.$watch('issue.filtersType',
+    function() {
+        // callback function
+        console.log('watch filtersType');
+    }, 
+    true);
 
   issue.isStaff = AuthService.getStaff();
 });

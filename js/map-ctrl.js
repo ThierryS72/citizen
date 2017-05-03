@@ -47,12 +47,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     }, function (error) {
       // This will be executed if the user denies access
       // or the browser doesn't support the Geolocation API
-      map.center = {
-        // These are the coordinates for the center of Yverdon-les-Bains
-        lat: 46.778474,
-        lng: 6.641183,
-        zoom: 15 // This one is actually optional
-      }
+      map.center = AppService.getMapCenter();
       console.log(error);
     });
 
@@ -61,8 +56,8 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
     // if a new marker is already set update the coordinates
     // Todo : reset newMarker after finishing issue report
-    if(newMarker){
-      console.log('maker already exist. Adjust coords ' +map.issueId);
+    if(AppService.newMarker){
+      console.log('marker already exist. Adjust coords ' +map.issueId);
       AppService.ajustMarkerCoords(map.issueId, wrap.leafletEvent.latlng.lat, wrap.leafletEvent.latlng.lng);
     } else {
       map.issueId = AppService.addMarker({
@@ -73,12 +68,21 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
         draggable: true
       });
       console.log(map.issueId);
-      newMarker = true;
+      AppService.newMarker = true;
     }
     //Add coordinates to AppService
     AppService.newIssueCoordinates = {
       lat:wrap.leafletEvent.latlng.lat,
       lng:wrap.leafletEvent.latlng.lng
     };
+    // recenter map
+    map.center = AppService.setMapCenter(wrap.leafletEvent.latlng.lat,wrap.leafletEvent.latlng.lng);
   });
+
+  $scope.$watch('map.markers',
+    function() {
+        // callback function
+        console.log('watch map.markers');
+    }, 
+    true);
 });

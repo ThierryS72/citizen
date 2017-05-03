@@ -53,6 +53,9 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     
   // markers is an array of markers for leaflet map
   var markers = [];
+  // for filter issue
+  var filters = {};
+  filters.type = [];
 
   var issue = this;
 
@@ -69,8 +72,14 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   var logged = false;
 
   var newIssueCoordinates = [];
-
-    return {
+  mapCenter = {
+    // These are the coordinates for the center of Yverdon-les-Bains
+    lat: 46.778474,
+    lng: 6.641183,
+    zoom: 15 // This one is actually optional
+  
+}
+  return {
         getMarkers: function () {
             return markers;
         },
@@ -80,11 +89,28 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },
         getIcons: function () {
             return mapIcons;
-        },
+        },        
+        // Set map center
+        setMapCenter: function(lat, lng){
+            mapCenter.lat = lat;
+            mapCenter.lng = lng;
+            return mapCenter;
+        }, 
+        getMapCenter: function () {
+            return mapCenter;
+        },   
         // Update coordinates of a marker (id)
         ajustMarkerCoords: function(id, lat, lng){
             markers[id].lat = lat;
             markers[id].lng = lng;
+        },
+        // set Filter type
+        setFiltersType: function (filtersType){
+            filters.type = filtersType;
+        },
+        // get Filters type
+        getFiltersType: function (){
+            return filters.type;
         },
         setIssues: function(issues) {
             markers = [];
