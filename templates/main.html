@@ -8,49 +8,47 @@
 -->
 <div class="container">
   <ul class="nav nav-pills">
-		<li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-		<li><a data-toggle="pill" ui-sref="report-issue">Déclarer un problème</a></li>
+      <li><a data-toggle="pill" ui-sref="report-issue">Déclarer un problème</a></li>
   </ul>
 </div>
 
-<div class="tab-content">
-	<div id="home" class="tab-pane fade in active"></div>
-	<div id="report" class="tab-pane fade in acive">
-		<h3>Menu 1</h3>
-		<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	</div>
-</div>
+ <div class="tab-content">
+    <div id="report" class="tab-pane fade in acive">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
 
 <div id="" class="container" ng-controller="ListCtrl as s">
   <span 
-		ng-dropdown-multiselect="" 
-		options="s.issuesFilter" 
-		selected-model="s.issuesFiltered" 
-		translation-texts="s.issuesFilterTexts"
-		extra-settings="s.issuesFilterSelectAllSettings">
+      ng-dropdown-multiselect="" 
+      options="s.issuesFilter" 
+      selected-model="s.issuesFiltered" 
+      translation-texts="s.issuesFilterTexts"
+      extra-settings="s.issuesFilterSelectAllSettings">
   </span>
 </div>
 
 <!--<div class="row" ng-if="(issue.listIssues.length > 0)">-->
 <div ng-if="(issue.listIssues.length > 0)">  
-	<section class="col-md-4">
-		<div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
-			<a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
-				<div class="alert alert-warning">
-					<span class="small pull-right">Last update: {{ issue.updatedAt }}</span>
-					<span class="small">Status: {{ issue.state }}</span>
-					<p class="list-group-item-text">{{ issue.description }}</p>
-					<img src="{{ issue.imageUrl }}" width="50" height="50"/>
-				</div>
-			</a>
-		</div>
-		<button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
-	</section>
+    <section class="col-md-4">
+        <div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
+        <a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
+            <div class="alert alert-warning">
+            <span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}}</span>
+            <span class="small">Statut: {{ issue.state }}</span>
+            <p class="list-group-item-text">{{ issue.description }}</p>
+            <img src="{{ issue.imageUrl }}" width="50" height="50"/>
+            </div>
+        </a>
+        </div>
+        <button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
+    </section>
     
-	<div id="map_layout" ng-controller="MapCtrl as map">
-		<leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
-	</div>
-	<!--
-	<div ui-view="map"></div>
-	-->
+    <div id="map_layout" ng-controller="MapCtrl as map">
+      <leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
+    </div>
+    <!--
+    <div ui-view="map"></div>
+    -->
 </div>

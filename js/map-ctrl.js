@@ -1,5 +1,7 @@
 angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppService) {
   var map = this;
+  var newMarker = false;
+  map.issueId = 0;
   map.defaults = {
     //doubleClickZoom: false, // disable the double-click zoom
     //scrollWheelZoom: false, // disable zooming with the scroll
@@ -45,29 +47,50 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     }, function (error) {
       // This will be executed if the user denies access
       // or the browser doesn't support the Geolocation API
-      map.center = {
-        // These are the coordinates for the center of Yverdon-les-Bains
-        lat: 46.778474,
-        lng: 6.641183,
-        zoom: 15 // This one is actually optional
-      }
+      map.center = AppService.getMapCenter();
       console.log(error);
     });
 
-  // get geoJson coordinates when click on map
+  // get geoJson coordinates when click on map and add/adjust a new marker
   $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
     console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
-    AppService.addMarker({
-      lat: wrap.leafletEvent.latlng.lat,
-      lng: wrap.leafletEvent.latlng.lng,
-      icon: mapIcons['defaultIcon'],
-      message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
-      draggable: true
-    });
+    // if a new marker is already set update the coordinates
+    // Todo : reset newMarker after finishing issue report
+    if(AppService.newMarker){
+      console.log('marker already exist. Adjust coords ' +map.issueId);
+      AppService.ajustMarkerCoords(map.issueId, wrap.leafletEvent.latlng.lat, wrap.leafletEvent.latlng.lng);
+    } else {
+      map.issueId = AppService.addMarker({
+        lat: wrap.leafletEvent.latlng.lat,
+        lng: wrap.leafletEvent.latlng.lng,
+        icon: mapIcons['defaultIcon'],
+        message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
+        draggable: true
+      });
+      console.log(map.issueId);
+      AppService.newMarker = true;
+    }
     //Add coordinates to AppService
     AppService.newIssueCoordinates = {
       lat:wrap.leafletEvent.latlng.lat,
       lng:wrap.leafletEvent.latlng.lng
     };
+    // recenter map
+    map.center = AppService.setMapCenter(wrap.leafletEvent.latlng.lat,wrap.leafletEvent.latlng.lng);
   });
+
+  $scope.$watch('map.markers',
+    function() {
+        // callback function
+        //console.log('watch map.markers');
+    }, 
+    true);
+
+    // Watch any event
+    $scope.$watch(function() {
+        //console.log('watch refresh markers');
+
+        // reload markers
+        map.markers = AppService.getMarkers();
+    });
 });
