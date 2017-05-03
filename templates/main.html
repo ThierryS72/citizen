@@ -1,13 +1,28 @@
-<!--<div ui-view="issue"></div>-->
-<div>
+<!--
+<div class="container">
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <!--<li><a data-toggle="tab" ui-sref="issue">Rechercher issue</a></a></li>-->
     <li><a data-toggle="tab" ui-sref="report-issue">Déclarer un problème</a></li>
   </ul>
 </div>
+-->
+<div class="container">
+  <ul class="nav nav-pills">
+      <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
+      <li><a data-toggle="pill" ui-sref="report-issue">Déclarer un problème</a></li>
+  </ul>
+</div>
 
-<div id="ui" class="" ng-controller="ListCtrl as s">
+ <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+    </div>
+    <div id="report" class="tab-pane fade in acive">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
+
+<div id="" class="container" ng-controller="ListCtrl as s">
   <span 
       ng-dropdown-multiselect="" 
       options="s.issuesFilter" 
@@ -32,22 +47,11 @@
         </div>
         <button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
     </section>
-    <!--<section class="col-md-8" ng-controller="MapCtrl as map">
-      <leaflet width="100%" height="480px" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
-    </section>-->
-    <!--<section class="col-md-8" ng-controller="MapCtrl as map">
-      <div ui-view="map2"></div>
-    </section>
-    -->
+    
     <div id="map_layout" ng-controller="MapCtrl as map">
       <leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
     </div>
-
-
+    <!--
+    <div ui-view="map"></div>
+    -->
 </div>
-<!--<div id="map_layout" ng-controller="MapCtrl as map">-->
-<!--<div ng-controller="MapCtrl as map">  -->
-  <!--<leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>-->
-  <!--<leaflet width="100%" height="480px" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
-</div>-->
-    

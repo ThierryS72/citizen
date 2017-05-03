@@ -1,22 +1,26 @@
-main { padding: 60px; }
+main { 
+  padding-top: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
+ }
 
 #map_layout {
    position: absolute;
    top:0;
    left: 0;
    margin: 0;
-   padding-top: 50px; 
+   padding-top: 150px; 
    width:  100%;
    height: auto;
    overflow: hidden;
    z-index: -1;
  }
-
-/*#ui {
+/* Utiliser pour les tests
+#ui {
   position: absolute;
-  padding-top: 50px;
+  padding-top: 250px;
   top: 30px;
   left: 30px;
   width: 400px;
-}*/
-
+}
+*/

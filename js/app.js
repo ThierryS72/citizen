@@ -23,7 +23,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
 
   $stateProvider.state('home.map', {
     views: {
-      map2: {
+      map: {
        templateUrl: 'main.map.html',
        controller: 'MapCtrl as map'
       }
