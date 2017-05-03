@@ -1,37 +1,38 @@
-<h1>Administration</h1>
-<h2>Liste des problèmes</h2>
-<div ng-controller="IssueCtrl as issue">
-    <div class="row" ng-if="(issue.listIssues.length > 0)">
-        <section class="col-md-8">
-            <div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit">
-                <a class="list-group-item" ui-sref-active="active">
-                <span class="small pull-right">Last update: {{ i.updatedAt }}</span>
-                <span class="small">Status: {{ i.state }}</span>
-                <p class="list-group-item-text">{{ i.description }}</p>
-                <img src="{{ i.imageUrl }}" width="50" height="50"/>
-                <button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
-                <button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
-                <button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>
-                <button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
-                </a>
-            </div>
-            <button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>
-        </section>
-    </div>
-</div>
-<h2>Liste des utilisateurs</h2>
-<div class="row" ng-if="(admin.listUsers.length > 0)">
-    <section class="col-md-8">
-        <div class="list-group alert alert-success" ng-repeat="u in admin.users | limitTo: admin.limit">
-            <span class="small pull-right">{{ u.name }}</span>
-            <span class="small">Téléphone : {{ u.phone }}</span>
-            <ul class="small" ng-repeat="r in u.roles">
-                <span class="small">{{ r }}</span>
-            </ul>
-            <p class="list-group-item-text">{{ u.firstname }} {{ u.lastname }}</p>
-            <button class="btn btn-success" ng-click="admin.putInStaff(u.href)">Mettre en staff</button>
-            </a>
-        </div>
-        <button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>
-    </section>
+<div class="container">
+	<h1>Administration</h1>
+	<h2>Liste des problèmes</h2>
+	<div ng-controller="IssueCtrl as issue">
+		<div class="row" ng-if="(issue.listIssues.length > 0)">
+			<section class="col-md-8">
+				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit">
+					<a class="list-group-item" ui-sref-active="active">
+						<span class="small pull-right">Last update: {{ i.updatedAt }}</span>
+						<span class="small">Status: {{ i.state }}</span>
+						<p class="list-group-item-text">{{ i.description }}</p>
+						<img src="{{ i.imageUrl }}" width="50" height="50"/>
+						<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
+						<button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
+						<button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>
+						<button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
+					</a>
+				</div>
+				<button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>
+			</section>
+		</div>
+	</div>
+	<h2>Liste des utilisateurs</h2>
+	<div class="row" ng-if="(admin.listUsers.length > 0)">
+		<section class="col-md-8">
+			<div class="list-group alert alert-success" ng-repeat="u in admin.users | limitTo: admin.limit">
+				<span class="small pull-right">{{ u.name }}</span>
+				<span class="small">Téléphone : {{ u.phone }}</span>
+				<ul class="small" ng-repeat="r in u.roles">
+					<span class="small">{{ r }}</span>
+				</ul>
+				<p class="list-group-item-text">{{ u.firstname }} {{ u.lastname }}</p>
+				<button class="btn btn-success" ng-click="admin.putInStaff(u.href)">Mettre en staff</button>
+			</div>
+			<button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>
+		</section>
+	</div>
 </div>

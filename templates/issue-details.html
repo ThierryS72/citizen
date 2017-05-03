@@ -14,67 +14,69 @@
 
 <!--<div class="row">-->
 <div>
-    <table class="table
-    table-bordered
-    table-striped
-    table-hover">
-      <tr>
-        <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
-      </tr>
-      <tr>
-        <td>{{ issue.detail.description }}</td>
-        <td>{{ issue.detail.state }}</td>
-        <td>{{ issue.detail.updatedAt }}</td>
-        <td>{{ issue.detail.createdAt }}</td>
-        <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
-      </tr>
-    </table>
-    <div ng-if="(issue.listComments.length > 0)">
-      <h2>Commentaires</h2>
-        <table class="table
-        table-bordered
-        table-striped
-        table-hover"
-        ng-if="issue.listComments.length > 0">
-          <tr>
-            <td>Commentaire</td><td>Date</td>
-          </tr>
-          <tr class="issue" ng-repeat="comment in issue.listComments">
-            <td>{{ comment.text }}</td>
-            <td>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
-          </tr>
-        </table>
-    </div>
-    <h3>Ajouter un commentaire</h3>
-    <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
-    <button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
-    <div ng-if="issue.Actions.length > 0">
-      <h2>Actions sur ce problème</h2>
-        <table class="table
-        table-bordered
-        table-striped
-        table-hover"
-        >
-          <tr>
-            <td>Commentaire</td><td>Date</td><td>Status</td>
-          </tr>
-          <tr class="issue" ng-repeat="action in issue.Actions">
-            <td>{{ action.reason }}</td>
-            <td>{{ action.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
-            <td>{{ action.type }}</td>
-          </tr>
-        </table>
-    </div>
-    <div ng-if="issue.isStaff">
-      <div ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">
-        <h3>Administration</h3>
-          <div class="form-group">
-            <label for="comment">Commentaire</label>
-            <input required type="text" id="comment" class="form-control" ng-model="issue.setActionComment">
-          </div>
-        <button ng-if="(issue.detail.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(issue.detail.id,'start')">Travailler</button>
-        <button class="btn btn-primary btn-success" ng-click="issue.setStatus(issue.detail.id,'resolve')" ng-if="(issue.detail.state == 'inProgress')">Clôturer</button>
-        <button class="btn btn-primary btn-danger" ng-click="issue.setStatus(issue.detail.id,'reject')" ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">Rejeter</button>
-      </div>
-    </div>
+  <table class="table 
+		table-bordered
+		table-striped
+		table-hover">
+		<tr>
+      <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+    </tr>
+    <tr>
+      <td>{{ issue.detail.description }}</td>
+      <td>{{ issue.detail.state }}</td>
+      <td>{{ issue.detail.updatedAt }}</td>
+      <td>{{ issue.detail.createdAt }}</td>
+      <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
+    </tr>
+  </table>
+  <div ng-if="(issue.listComments.length > 0)">
+		<h2>Commentaires</h2>
+		<table class="table 
+			table-bordered
+			table-striped
+			table-hover"
+			ng-if="issue.listComments.length > 0">
+			<tr>
+				<td>Commentaire</td><td>Date</td>
+			</tr>
+			<tr class="issue" ng-repeat="comment in issue.listComments">
+				<td>{{ comment.text }}</td>
+				<td>{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+			</tr>
+		</table>
+	</div>
+  <h3>Ajouter un commentaire</h3>
+  <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
+	<button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
+  <div ng-if="issue.Actions.length > 0">
+    <h2>Actions sur ce problème</h2>
+		<table class="table
+			table-bordered
+			table-striped
+			table-hover">
+			<tr>
+				<td>Commentaire</td><td>Date</td><td>Status</td>
+			</tr>
+			<tr class="issue" ng-repeat="action in issue.Actions">
+				<td>{{ action.reason }}</td>
+				<td>{{ action.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+				<td>{{ action.type }}</td>
+			</tr>
+		</table>
+   </div>
+   <div ng-if="issue.isStaff">
+		<div ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">
+			<h3>Administration</h3>
+			<div class="form-group">
+				<label for="comment">Commentaire</label>
+				<input required type="text" id="comment" class="form-control" ng-model="issue.setActionComment">
+			</div>
+			<button ng-if="(issue.detail.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(issue.detail.id,'start')">Travailler</button>
+			<button class="btn btn-primary btn-success" ng-click="issue.setStatus(issue.detail.id,'resolve')" ng-if="(issue.detail.state == 'inProgress')">Clôturer</button>
+			<button class="btn btn-primary btn-danger" ng-click="issue.setStatus(issue.detail.id,'reject')" ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">Rejeter</button>
+		</div>
+	</div>
+</div>
+<div id="map_layout" ng-controller="MapCtrl as map">
+  <leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
 </div>
