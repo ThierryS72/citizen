@@ -1,7 +1,7 @@
 <div class="panel-body" id="dialog">
   <!--<div class="row">-->
   <div>
-    <div class="col-md-8">
+    <div>
       <div class="alert clearfix" ng-class='{"alert-warning": issue.detail.mine, "alert-success": !issue.detail.mine}'>
         Détail {{ issue.detail.id }}
         <div class="pull-right">
@@ -13,7 +13,7 @@
 </div>
 
 <!--<div class="row">-->
-<div>
+<div class="col-md-4">
   <table class="table 
 		table-bordered
 		table-striped
@@ -24,8 +24,8 @@
     <tr>
       <td>{{ issue.detail.description }}</td>
       <td>{{ issue.detail.state }}</td>
-      <td>{{ issue.detail.updatedAt }}</td>
-      <td>{{ issue.detail.createdAt }}</td>
+      <td>{{ issue.detail.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{ issue.detail.createdAt | date: 'dd/MM/yyyy HH:mm'}}</td>
       <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
     </tr>
   </table>
@@ -77,6 +77,6 @@
 		</div>
 	</div>
 </div>
-<div id="map_layout" ng-controller="MapCtrl as map">
-  <leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
+<div class="col-md-8" ng-controller="MapCtrl as map">
+  <leaflet width="100%" height="480px" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>
 </div>
