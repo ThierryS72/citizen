@@ -71,6 +71,8 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   var newAccount = false;
   var logged = false;
 
+  var newMarker = false;
+
   var newIssueCoordinates = [];
   mapCenter = {
     // These are the coordinates for the center of Yverdon-les-Bains

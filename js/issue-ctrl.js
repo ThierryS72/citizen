@@ -17,10 +17,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     console.log('issueCtrl get list issue');
-    
+    console.dir(issue.filtersType);
     var qData = {};
     qData.pageSize = 50;
-    qData.filter = issue.filtersType;
+    qData.state = issue.filtersType;
     issue.filtersType.forEach(function (f){
       console.log(f);
       
@@ -219,12 +219,10 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     console.log('display more : ' + issue.limit);
   }
 
-  $scope.$watch('issue.filtersType',
-    function() {
-        // callback function
-        console.log('watch filtersType');
-    }, 
-    true);
+  $scope.$watch(function() {
+        //console.log('watch refresh issue');
+        //issue.getListIssues();
+    });
 
   issue.isStaff = AuthService.getStaff();
 });
