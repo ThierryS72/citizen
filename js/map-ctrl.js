@@ -82,7 +82,15 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
   $scope.$watch('map.markers',
     function() {
         // callback function
-        console.log('watch map.markers');
+        //console.log('watch map.markers');
     }, 
     true);
+
+    // Watch any event
+    $scope.$watch(function() {
+        //console.log('watch refresh markers');
+
+        // reload markers
+        map.markers = AppService.getMarkers();
+    });
 });

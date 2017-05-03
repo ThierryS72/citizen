@@ -21,10 +21,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     var qData = {};
     qData.pageSize = 50;
     qData.state = issue.filtersType;
-    issue.filtersType.forEach(function (f){
-      console.log(f);
-      
-    });
     delete issue.error;
     $http({
       method: 'GET',
@@ -219,8 +215,17 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     console.log('display more : ' + issue.limit);
   }
 
+  var oldFilter = 0;
+
+  // watch any event in the scope
   $scope.$watch(function() {
         //console.log('watch refresh issue');
+        issue.filtersType = AppService.getFiltersType();
+        if(oldFilter != issue.filtersType.length){
+          console.log('DEBUG filter change !');
+          oldFilter = issue.filtersType.length;
+          issue.getListIssues();
+        }
         //issue.getListIssues();
     });
 
