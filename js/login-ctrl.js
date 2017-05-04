@@ -33,13 +33,12 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
 
   login.setInfoMe = function info() {
     delete login.error;
-    console.log('login info');
+    //console.log('login info');
     $http({
       method: 'GET',
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
     }).then(function(res) {
-      login.infoMe = res.data;
-      
+      login.infoMe = res.data;      
       login.isStaff();
       AppService.setUserInfo(login.infoMe);
     }).catch(function(error) {
@@ -51,7 +50,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
   // Check if it's a staff member
   login.isStaff = function() {
     AuthService.setStaff(false);
-    console.dir(login.infoMe);
+    //console.dir(login.infoMe);
     login.infoMe.roles.forEach(function(role)
     {
       if(role == "staff")
@@ -80,5 +79,6 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
   }
 
   login.isConnected = AuthService.getLogged();
+  login.isStaff = AuthService.getStaff();
   login.setInfoMe();
 });

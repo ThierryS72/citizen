@@ -16,8 +16,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
-    console.log('issueCtrl get list issue');
-    console.dir(issue.filtersType);
+    //console.log('issueCtrl get list issue');
+    //console.dir(issue.filtersType);
     var qData = {};
     qData.pageSize = 50;
     qData.state = issue.filtersType;
@@ -68,15 +68,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
     }).then(function(res) {
       issue.detail = res.data;
-      // center map todo
-      /*
-      map.center = {
-        // These are the coordinates for the center of Yverdon-les-Bains
-        lat: issue.detail.location.coordinates[1],
-        lng: issue.detail.location.coordinates[0],
-        zoom: 20 // This one is actually optional
-      }
-      */
+      // recenter map on issue
+      AppService.setMapCenter(issue.detail.location.coordinates[1],issue.detail.location.coordinates[0]);
     }).catch(function(error) {
       issue.error = "Error while trying to get issue detail";
       $log.error(error);
@@ -120,7 +113,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     {
       delete issue.error;
       issue.newComment.id = id;
-      console.log('add comment');
       $http({
         method: 'POST',
         url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments',
@@ -140,7 +132,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     delete issue.error;
     // get coordinates from service
     issue.coordinates = AppService.newIssueCoordinates;
-    console.dir(issue.coordinates);
+    //console.dir(issue.coordinates);
     issue.newIssue.location = {
       "coordinates": [
         issue.coordinates.lng,
@@ -148,7 +140,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       ],
       "type": "Point"
     };
-    console.log('Add an issue');
+    //console.log('Add an issue');
     $http({
       method: 'POST',
       url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',

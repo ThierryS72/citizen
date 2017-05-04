@@ -9,7 +9,7 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
     $scope.$watch('issuesFiltered',
     function() {
         // callback function
-        console.log( item.issuesFiltered );
+        //console.log( item.issuesFiltered );
     }, 
     true);
 

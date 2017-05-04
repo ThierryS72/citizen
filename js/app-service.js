@@ -56,6 +56,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   // for filter issue
   var filters = {};
   filters.type = [];
+  filters.listTags = [];
 
   var issue = this;
 
@@ -143,17 +144,23 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                     name: 'test',
                     message: "<span><a href=\"details/"+element.id+"\" ng-click=\"map.clickMarker('"+element.id+"')\">"+element.description+"<img src=\""+element.imageUrl+"\" width=\"50\" height=\"50\"/></a></span>"
                 });
+                // Add tags in list for filters
+                element.tags.forEach(function(tags){
+                    if(filters.listTags.indexOf(tags)<0)
+                    {
+                     filters.listTags.push(tags);
+                    }
+                });
             });
         },
         getUserInfo: function() {
-          //console.log('getUserInfo service :');
-          //console.dir(userInfo);
           return userInfo;
         },
         setUserInfo: function(info) {
           userInfo = info;
-          //console.log('setUserInfo service : ');
-          //console.dir(userInfo);
+        },
+        getListTags: function() {
+            return filters.listTags;
         },
         setNewAccount: function(status) {
           newAccount = status;
@@ -162,7 +169,6 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
           return newAccount;
         },
         setIsConnected: function(status) {
-          //console.log('AppService setIsConnected : ' + status);
           logged = status;
         },
         isConnected: function() {

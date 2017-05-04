@@ -20,11 +20,11 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
   mapIcons = AppService.getIcons();
 
   map.markers = AppService.getMarkers();
-  console.log('mapCtrl markers : ');
-  console.dir(map.markers);
+  //console.log('mapCtrl markers : ');
+  //console.dir(map.markers);
 
   $scope.$on('leafletDirectiveMarker.dragend', function(event, args) {
-    console.log(args.model); // Will give you the updated marker object
+    //console.log(args.model); // Will give you the updated marker object
   });
 
   // event when click on a marker on map (doesn't work)
@@ -36,9 +36,9 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
   $geolocation.getCurrentPosition()
     .then(function (position) {
       // This will be executed when the location is accessed
-      console.log(position);
-      console.log("Lat : "+ position.coords.latitude);
-      console.log("Long : "+ position.coords.longitude);
+      //console.log(position);
+      //console.log("Lat : "+ position.coords.latitude);
+      //console.log("Long : "+ position.coords.longitude);
       map.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -67,7 +67,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
         message: "<span><a href=\"report\">Déclarer mon problème</a></span>",
         draggable: true
       });
-      console.log(map.issueId);
+      //console.log(map.issueId);
       AppService.newMarker = true;
     }
     //Add coordinates to AppService
@@ -89,7 +89,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     // Watch any event
     $scope.$watch(function() {
         //console.log('watch refresh markers');
-
+        map.center = AppService.getMapCenter();
         // reload markers
         map.markers = AppService.getMarkers();
     });
