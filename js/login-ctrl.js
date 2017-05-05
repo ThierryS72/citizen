@@ -1,5 +1,6 @@
 angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state) {
   var login = this;
+  var apiUrl = 'https://masrad-dfa-2017-a.herokuapp.com';
 
   login.user = {};
 
@@ -11,7 +12,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
 
     $http({
       method: 'POST',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/auth',
+      url: apiUrl+'/api/auth',
       data: login.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);
@@ -36,10 +37,10 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     //console.log('login info');
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/me'
+      url: apiUrl+'/api/me'
     }).then(function(res) {
       login.infoMe = res.data;      
-      login.isStaff();
+      login.isStaff = AuthService.getStaff();
       AppService.setUserInfo(login.infoMe);
     }).catch(function(error) {
       login.error = "Error";
@@ -68,7 +69,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     }
     $http({
       method: 'PATCH',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com'+login.infoMe.href,
+      url: apiUrl+login.infoMe.href,
       data: login.updateData
     }).then(function(res) {
       AppService.setUserInfo(login.infoMe);
@@ -78,7 +79,23 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     })
   }
 
+  // Get my issues
+  login.myIssues = function info() {
+    delete login.error;
+    //console.log('login info');
+    $http({
+      method: 'GET',
+      url: apiUrl+'/api/me/issues'
+    }).then(function(res) {
+      login.myIssuesList = res.data;
+    }).catch(function(error) {
+      login.error = "Error";
+      $log.error(error);
+    })
+  }
+
   login.isConnected = AuthService.getLogged();
   login.isStaff = AuthService.getStaff();
   login.setInfoMe();
+  login.myIssues();
 });
