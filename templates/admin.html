@@ -5,7 +5,7 @@
 			<h2>Historique des actions</h2>
 			<div class="list-group alert" ng-repeat="a in admin.listActions" ng-class="{'alert-warning': a.type=='start', 'alert-success': a.type=='resolve', 'alert-danger': a.type=='reject', 'alert-secondary': a.type=='new'}">
 				<a class="list-group-item">
-					<span class="small">Status: {{ a.type }} par {{ a.user.name }}</span>
+					<span class="small">Etat: {{ a.type }} par {{ a.user.name }}</span>
 					<p class="list-group-item-text">{{ a.reason }}</p>
 				</a>
 			</div>
@@ -15,9 +15,9 @@
 				<h2>Actions en cours</h2>
 				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit">
 					<a class="list-group-item" ui-sref-active="active">
-						<span class="small pull-right">Last update: {{ i.updatedAt }}</span>
-						<span class="small">Status: {{ i.state }} {{ i.assignee.name }}</span>
-						<span class="small">Par : {{ i.creator.name }}</span>
+						<span class="small pull-right">Dernière mise à jour: {{ i.updatedAt | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
+						<span class="small">Etat: {{ i.state }} {{ i.assignee.name }}</span>
+						<span class="small">par : {{ i.creator.name }}</span>
 						<p class="list-group-item-text">{{ i.description }}</p>
 						<img src="{{ i.imageUrl }}" width="50" height="50"/>
 						<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
