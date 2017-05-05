@@ -21,6 +21,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     var qData = {};
     qData.pageSize = 50;
     qData.state = issue.filtersType;
+    qData.include = ['creator','assignee'];
     delete issue.error;
     $http({
       method: 'GET',
@@ -63,9 +64,12 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   issue.details = function details(id) {
     delete issue.error;
+    var qData = {};
+    qData.include = ['creator','assignee'];
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id,
+      params: qData
     }).then(function(res) {
       issue.detail = res.data;
       // recenter map on issue
@@ -80,9 +84,12 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.listComments = {};
   issue.comments = function comments(id) {
     delete issue.error;
+    var qData = {};
+    qData.include = ['author'];
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments'
+      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments',
+      params: qData
     }).then(function(res) {
       issue.listComments = res.data;
       console.log('issue comments '+id+' nb : '+issue.listComments.length);
