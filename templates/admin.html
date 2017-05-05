@@ -6,8 +6,8 @@
 			<section class="col-md-8">
 				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit">
 					<a class="list-group-item" ui-sref-active="active">
-						<span class="small pull-right">Last update: {{ i.updatedAt }}</span>
-						<span class="small">Status: {{ i.state }}</span>
+						<span class="small pull-right">Dernière mise à jour: {{ i.updatedAt }}</span>
+						<span class="small">Etat: {{ i.state }}</span>
 						<p class="list-group-item-text">{{ i.description }}</p>
 						<img src="{{ i.imageUrl }}" width="50" height="50"/>
 						<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
