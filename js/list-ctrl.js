@@ -5,14 +5,14 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
 
     item.issuesFiltered = [];
     $scope.issuesFiltered = item.issuesFiltered; // point to issuesFiltered, required for $watch
-    
-    /*$scope.$watch('issuesFiltered',
+
+    $scope.$watch('issuesFiltered',
     function() {
         // callback function
         //console.log( item.issuesFiltered );
     }, 
-    true);*/
-    
+    true);
+
     item.issuesFilterTexts = {
         buttonDefaultText: 'Filtre', 
         checkAll: 'Tout sélectionner', 

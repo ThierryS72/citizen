@@ -20,7 +20,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     templateUrl: './templates/main.html',
    controller: 'IssueCtrl as issue'
   });
-  /*
+
   $stateProvider.state('home.map', {
     views: {
       map: {
@@ -29,7 +29,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
       }
     }
   });
-  */
+
   $stateProvider.state('register', {
     url: '/register',
     templateUrl: './templates/register.html',
@@ -62,12 +62,6 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     controllerAs: 'aboutPageCtrl'
   });
 
-  $stateProvider.state('privacy', {
-    url: '/privacy',
-    templateUrl: './templates/privacy.html',
-    controller: 'PrivacyPageController',
-    controllerAs: 'privacyPageCtrl'
-  });
 
   $stateProvider.state('details', {
     url: '/details/:id',
@@ -75,13 +69,13 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $http
     controller: 'IssueCtrl',
     controllerAs: 'issue'
   });
-  /*
+
   $stateProvider.state('map', {
     url: '/map',
     templateUrl: './templates/map.html',
     controller: 'MapCtrl as map'
   });
-  */  
+    
   $stateProvider.state('report-issue', {
     url: '/report',
     templateUrl: './templates/report-issue.html',

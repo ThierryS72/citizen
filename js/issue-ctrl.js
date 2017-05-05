@@ -140,6 +140,11 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       ],
       "type": "Point"
     };
+    issue.newIssue.tags = {
+      "tags": [
+        issue.tagsList
+      ],
+    };
     //console.log('Add an issue');
     $http({
       method: 'POST',
