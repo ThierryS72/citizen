@@ -35,8 +35,8 @@
 	<section class="col-md-4">
 		<div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
 			<a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
-				<div class="alert alert-warning">
-					<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}}</span>
+				<div class="alert" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
+					<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.creator.name }}</span>
 					<span class="small">Statut: {{ issue.state }}</span>
 					<p class="list-group-item-text">{{ issue.description }}</p>
 					<img src="{{ issue.imageUrl }}" width="50" height="50"/>
