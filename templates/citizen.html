@@ -22,17 +22,21 @@
 		</div>
 	</span>
 	<!-- My specific issues -->
-	<div class="col-md-6" ng-if="login.myIssuesList.length > 0">
+	<div class="panel panel-default col-md-6" ng-if="login.myIssuesList.length > 0">
 		<h2>Mes problèmes ({{login.myIssuesList.length}})</h2>
-		<div class="list-group alert alert-success" ng-repeat="issue in login.myIssuesList">
+		<span class="list-group" ng-repeat="issue in login.myIssuesList">
 			<a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
-				<div class="alert" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
-					<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}}</span>
-					<span class="small">Etat: {{ issue.state }}</span>
-					<p class="list-group-item-text">{{ issue.description }}</p>
-					<img src="{{ issue.imageUrl }}" width="50" height="50"/>
+				<div class="alert media" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
+					<div class="media-body">
+					 	<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}}</span>
+					 	<span class="small">Etat: {{ issue.state }}</span>
+					  	<p class="list-group-item-text">{{ issue.description }}</p>
+					</div>
+					  	<div class="alert media-right">
+					  	<img class="img-circle" align="right" src="{{ issue.imageUrl }}" width="65" height="65"/>
+					</div>
 				</div>
 			</a>
-		</div>
+		</span>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<h1>Administration</h1>
-		<div class="col-md-6" ng-if="admin.listActions.length > 0">
+		<div class="panel panel-default col-md-6" ng-if="admin.listActions.length > 0">
 			<h2>Historique des actions</h2>
 			<div class="list-group alert" ng-repeat="a in admin.listActions" ng-class="{'alert-warning': a.type=='start', 'alert-success': a.type=='resolve', 'alert-danger': a.type=='reject', 'alert-secondary': a.type=='new'}">
 				<a class="list-group-item">
@@ -11,25 +11,29 @@
 			</div>
 		</div>
 		<div ng-controller="IssueCtrl as issue" >
-			<div class="col-md-6" ng-if="(issue.listIssues.length > 0)">
+			<div class="panel panel-default col-md-6" ng-if="(issue.listIssues.length > 0)">
 				<h2>Actions en cours</h2>
-				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit">
-					<a class="list-group-item" ui-sref-active="active">
-						<span class="small pull-right">Dernière mise à jour: {{ i.updatedAt | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
-						<span class="small">Etat: {{ i.state }} {{ i.assignee.name }}</span>
-						<span class="small">par : {{ i.creator.name }}</span>
-						<p class="list-group-item-text">{{ i.description }}</p>
-						<img align="right" src="{{ i.imageUrl }}" width="50" height="50"/>
-						<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
-						<button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
-						<button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>
-						<button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
+				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit" style ="background-color:azure">
+					<a class="list-group-item media" ui-sref-active="active" >
+						<div  class="media-body">
+							<span class="small pull-right">Dernière mise à jour: {{ i.updatedAt | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
+							<span class="small">Etat: {{ i.state }} {{ i.assignee.name }}</span>
+							<span class="small">par : {{ i.creator.name }}</span>
+							<p class="list-group-item-text">{{ i.description }}</p>
+							<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
+							<button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
+							<button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>
+							<button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
+						</div>
+						<div class="alert media-right">
+							<img class="img-circle" align="right" src="{{ i.imageUrl }}" width="50" height="50"/>
+						</div>
 					</a>
 				</div>
 				<button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>
 			</div>
 		</div>
-		<div class="col-md-6"  ng-if="(admin.listUsers.length > 0)">
+		<div class="panel panel-default col-md-6"  ng-if="(admin.listUsers.length > 0)">
 			<h2>Liste des utilisateurs</h2>
 			<div class="list-group alert alert-success" ng-repeat="u in admin.users | limitTo: admin.limit">
 				<span class="small pull-right">{{ u.name }}</span>

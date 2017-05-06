@@ -31,14 +31,18 @@
 </div>
 
 <div ng-if="(issue.listIssues.length > 0)">  
-	<section class="panel panel-default col-md-4">
-		<div class="list-group alert alert-success" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
+	<section class="panel panel-info col-md-4" style ="background-color:coral">
+		<div class="list-group alert alert-success media" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
 			<a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
-				<div class="alert" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
+				<div class="alert media-body" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
+					<div class="media-body">
 					<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.creator.name }}</span>
 					<span class="small">Etat: {{ issue.state }}</span>
 					<p class="list-group-item-text">{{ issue.description }}</p>
-					<img align=right src="{{ issue.imageUrl }}" width="50" height="50"/>
+					</div>
+					<div class="alert media-right">
+					<img class="img-circle" src="{{ issue.imageUrl }}" width="75" height="75"/>
+					</div>
 				</div>
 			</a>
 		</div>
