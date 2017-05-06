@@ -1,3 +1,4 @@
+<!-- My account specification -->
 <div class="container">
 	<span class="col-md-6">
 		<h2>Mon profil ({{login.infoMe.firstname}})</h2>
@@ -20,6 +21,7 @@
 		{{login.error}}
 		</div>
 	</span>
+	<!-- My specific issues -->
 	<div class="col-md-6" ng-if="login.myIssuesList.length > 0">
 		<h2>Mes problèmes ({{login.myIssuesList.length}})</h2>
 		<div class="list-group alert alert-success" ng-repeat="issue in login.myIssuesList">
