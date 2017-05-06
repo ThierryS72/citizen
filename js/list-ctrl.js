@@ -6,28 +6,32 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
     item.issuesFiltered = [];
     $scope.issuesFiltered = item.issuesFiltered; // point to issuesFiltered, required for $watch
 
-    $scope.$watch('issuesFiltered',
-    function() {
-        // callback function
-        //console.log( item.issuesFiltered );
-    }, 
-    true);
-
     item.issuesFilterTexts = {
         buttonDefaultText: 'Filtre', 
         checkAll: 'Tout sélectionner', 
         uncheckAll: 'Ne rien sélectionner', 
         dynamicButtonTextSuffix: 'sélectionné(s)',
         searchPlaceholder: 'Rechercher...'};
-
-    item.issuesFilter = [ 
-        {id: 1, label: "Nouveau", value: "new", option: ""}, 
+   
+    item.issuesFilter = [
+        {id: 1, label: "Nouveau", value: "new", option: "T"}, 
         {id: 2, label: "En cours", value: "inProgress", option: "S"}, 
         {id: 3, label: "Résolu", value: "resolved", option: "S"}, 
         {id: 4, label: "Rejeté", value: "rejected", option: "S"} ];
 
+    /*listTags = AppService.getListTags(); 
+    id = 5; 
+    listTags.forEach(function(test) {
+        if (element)
+        {
+            console.log('Filtres en place: '+ element);
+            item.issuesFilter.push('id:' id', label:' element', option: "Tag"');
+            id +=1;
+        }
+    };*/
+    
     item.issuesFilterSelectAllSettings = {
-        enableSearch: true, 
+        enableSearch: true,
         showSelectAll: 
         true, 
         keyboardControls: 
@@ -36,8 +40,12 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
         function(groupValue) { 
             if (groupValue === 'S') { 
                 return 'Etat'; } 
-            else { 
-                return 'Type'; } 
+            else {
+                if (groupValue === 'T') {   
+                return 'Type'; }
+                else {
+                return 'Tag';  }
+                }
             }, groupBy: 'option' 
     };
 

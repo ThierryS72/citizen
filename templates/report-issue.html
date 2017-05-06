@@ -1,6 +1,6 @@
 <!-- Formulary to declare an issue -->
 <h1>Déclarer une issue</h1>
-<form id="addIssue" class="col-md-2" name="issueForm">
+<form id="addIssue" class="panel panel-default col-md-2" name="issueForm">
 	<div class="form-group">
 		<label for="desc">Description</label>
 		<textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description"></textarea>
@@ -17,8 +17,8 @@
 		</datalist>
 	</div>
 	<div class="form-group">
-		<label for="desc">Mot(s) clé(s)</label>
-		<textarea required type="text" id="tag" class="form-control" ng-model="issue.newIssue.tag"></textarea>
+		<label for="tag">Mots clés (optionel)</label>
+		<textarea type="text" id="tag" class="form-control" ng-model="issue.newIssue.tag"></textarea>
 	</div>
 	<button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
 </form>

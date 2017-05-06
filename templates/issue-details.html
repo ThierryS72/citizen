@@ -1,14 +1,16 @@
+<!-- Issue details and commentaries -->
 <div class="col-md-6">
   <table class="table 
 		table-bordered
 		table-striped
 		table-hover">
 		<tr>
-      <td>Description</td><td>State</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+      <td>Description</td><td>Mots clés</td><td>Etat</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
     </tr>
     <tr>
       <td>{{ issue.detail.description }}</td>
-      <td>{{ issue.detail.state }}</td>
+      <td>{{ issue.detail.tag }}</td>
+			<td>{{ issue.detail.state }}</td>
       <td>{{ issue.detail.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
       <td>{{ issue.detail.createdAt | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.detail.creator.name }}</td>
       <td><img src="{{ issue.detail.imageUrl }}" width="100" height="100"/></td>
@@ -30,6 +32,7 @@
 			</tr>
 		</table>
 	</div>
+	<!-- Add comment on issues -->
   <h3>Ajouter un commentaire</h3>
   <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
 	<button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
@@ -40,7 +43,7 @@
 			table-striped
 			table-hover">
 			<tr>
-				<td>Commentaire</td><td>Date</td><td>Status</td>
+				<td>Commentaire</td><td>Date</td><td>Etat</td>
 			</tr>
 			<tr class="issue" ng-repeat="action in issue.Actions">
 				<td>{{ action.reason }}</td>
@@ -49,6 +52,7 @@
 			</tr>
 		</table>
    </div>
+	 <!-- Administation: staff can work on issue, resolve or reject the issue -->
    <div ng-if="issue.isStaff">
 		<div ng-if="issue.detail.state == 'new' || issue.detail.state == 'inProgress'">
 			<h3>Administration</h3>

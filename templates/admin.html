@@ -19,7 +19,7 @@
 						<span class="small">Etat: {{ i.state }} {{ i.assignee.name }}</span>
 						<span class="small">par : {{ i.creator.name }}</span>
 						<p class="list-group-item-text">{{ i.description }}</p>
-						<img src="{{ i.imageUrl }}" width="50" height="50"/>
+						<img align="right" src="{{ i.imageUrl }}" width="50" height="50"/>
 						<button ng-if="(i.state == 'new')" class="btn btn-primary btn-warning" ng-click="issue.setStatus(i.id,'start')">Travailler</button>
 						<button class="btn btn-success" ng-click="issue.setStatus(i.id,'resolve')" ng-if="(i.state == 'inProgress')">Clôturer</button>
 						<button class="btn btn-secondary" ng-click="issue.setStatus(i.id,'reject')" ng-if="i.state == 'new' || i.state == 'inProgress'">Rejeter</button>

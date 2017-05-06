@@ -147,9 +147,9 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       ],
       "type": "Point"
     };
-    issue.newIssue.tags = {
+    issue.newIssue.tag = {
       "tags": [
-        issue.tagsList
+        issue.tag
       ],
     };
     //console.log('Add an issue');
