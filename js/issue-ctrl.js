@@ -21,14 +21,11 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     var qBody = {};
     if(issue.filtersType.length>0){
       qBody.state =  {
-        "state": {
-          "$in": issue.filtersType
-        }
+        "$in": issue.filtersType
       }
     }
     // Search around our location
     var searchCoords = AppService.getMapSearchCoordinates();
-    console.dir(searchCoords);
     qBody.location =  {
       "$geoWithin": {
         "$centerSphere" : [
@@ -37,7 +34,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
         ]
       }
     }
-    console.dir(qBody);
+
     var qData = {};
     qData.pageSize = 25;
     qData.include = ['creator','assignee','actions','assignee'];
