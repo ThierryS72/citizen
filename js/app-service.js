@@ -62,6 +62,9 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
   filters.type = [];
   filters.listTags = [];
 
+  // ask a new issue list
+  var reloadIssueList = false;
+
   var issue = this;
 
   // array for issues
@@ -130,6 +133,13 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         },// get API Url
         getCitizenApiUrl: function (){
             return apiUrl;
+        },
+        getReloadIssueList: function(){
+            return reloadIssueList;
+        },
+        setReloadIssueList: function(value){
+            reloadIssueList = value;
+            return reloadIssueList;
         },
         setIssues: function(issues) {
             markers = [];
