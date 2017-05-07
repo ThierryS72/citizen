@@ -30,7 +30,7 @@ angular.module('app').controller('AdminCtrl', function LoginCtrl(AppService, Aut
           roles: ["citizen","staff"]
         }
     }).then(function(res) {
-      console.log('User is staff : '+user);
+      //console.log('User is staff : '+user);
     }).catch(function(error) {
       login.error = "Impossible d'ajouter le role staff pour "+user;
       $log.error(error);

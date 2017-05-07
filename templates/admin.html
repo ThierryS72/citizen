@@ -62,7 +62,7 @@
 				<div class="panel-body">
 					<dl class="dl-horizontal">
 					<dt>Nom de famille</dt>
-					<dd>{{ u.firstname }}</dd>
+					<dd>{{ u.firstname }} <button class="btn btn-success align-right" ng-click="admin.putInStaff(u.href)">Mettre en staff</button></dd>
 					<dt>Prénom</dt>
 					<dd>{{ u.lastname }}</dd>
 					<dt>Identifiant</dt>
@@ -73,7 +73,6 @@
 					<dd ng-repeat="r in u.roles">
 						{{ r }}
 					</dd>
-					<button class="btn btn-success" ng-click="admin.putInStaff(u.href)">Mettre en staff</button>
 				</div>
 			</div>
 			<button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>

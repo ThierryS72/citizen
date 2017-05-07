@@ -65,7 +65,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
 
   // Update profile
   login.update = function() {
-    console.log('update profile');
+    //console.log('update profile');
     login.updateData = {
       firstname: login.infoMe.firstname,
       lastname: login.infoMe.lastname,

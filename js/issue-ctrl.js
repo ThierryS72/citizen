@@ -131,7 +131,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       params: qData
     }).then(function(res) {
       issue.listComments = res.data;
-      console.log('issue comments '+id+' nb : '+issue.listComments.length);
+      //console.log('issue comments '+id+' nb : '+issue.listComments.length);
     }).catch(function(error) {
       issue.error = "Error while trying to get issue comments";
       $log.error(error);
@@ -146,7 +146,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       url: apiUrl+'/api/issues/'+id+'/actions'
     }).then(function(res) {
       issue.Actions = res.data;
-      console.log('issue actions '+id+' nb : '+issue.Actions.length);
+      //console.log('issue actions '+id+' nb : '+issue.Actions.length);
     }).catch(function(error) {
       issue.error = "Error while trying to get issue actions";
       $log.error(error);
@@ -210,7 +210,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // Delete an issue
   issue.deleteIssue = function deleteIssue(id) {
     delete issue.error;
-    console.log('Delete an issue '+id);
+    //console.log('Delete an issue '+id);
     $http({
       method: 'DELETE',
       url: apiUrl+'/api/issues/'+id
@@ -225,7 +225,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // Change issue status
   issue.setStatus = function setStatus(IssueId,status) {
-    console.log('Issue setStatus '+IssueId+' status : '+status+' comment : '+issue.setActionComment);
+    //console.log('Issue setStatus '+IssueId+' status : '+status+' comment : '+issue.setActionComment);
     delete issue.error;
     issue.setAction = {
       "reason": issue.setActionComment,
@@ -256,7 +256,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   issue.displayMore = function displayMore() {
     issue.limit += 5;
-    console.log('display more : ' + issue.limit);
+    //console.log('display more : ' + issue.limit);
   }
 
   var oldFilter = 0;

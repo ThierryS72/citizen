@@ -61,7 +61,7 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
             AppService.setFiltersType(filtersType);
         });
         if(item.issuesFiltered.length == 0){
-          console.log('Filtres reset');
+          //console.log('Filtres reset');
           AppService.setFiltersType({});
         }
     }, 

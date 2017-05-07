@@ -29,7 +29,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
 
   // event when click on a marker on map (doesn't work)
   map.clickMarker = function clickMarker(id){
-    console.log('clickMarker : '+id);
+    //console.log('clickMarker : '+id);
   }
 
   // Compare coordinates with last issue search coordinates and ask a new query if needed
@@ -37,7 +37,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     var lastCoords = AppService.getMapSearchCoordinates();
     // Check move diff
     if((Math.abs(coords.lat-lastCoords.lat) > 0.002) || (Math.abs(coords.lng-lastCoords.lng) > 0.01)){
-      console.log('checkCoordsNewSearch : should reload !');
+      //console.log('checkCoordsNewSearch : should reload !');
       AppService.setMapSearchCoordinates(coords);
       AppService.setReloadIssueList(true);
     }
@@ -56,16 +56,16 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
       // This will be executed if the user denies access
       // or the browser doesn't support the Geolocation API
       map.center = AppService.getMapCenter();
-      console.log(error);
+      //console.log(error);
     });
 
   // get geoJson coordinates when click on map and add/adjust a new marker
   $scope.$on('leafletDirectiveMap.click', function (e, wrap) {
-    console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
+    //console.log("Lat, Lon : " + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
     // if a new marker is already set update the coordinates
     // Todo : reset newMarker after finishing issue report
     if(AppService.newMarker){
-      console.log('marker already exist. Adjust coords ' +map.issueId);
+      //console.log('marker already exist. Adjust coords ' +map.issueId);
       AppService.ajustMarkerCoords(map.issueId, wrap.leafletEvent.latlng.lat, wrap.leafletEvent.latlng.lng);
     } else {
       map.issueId = AppService.addMarker({

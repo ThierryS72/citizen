@@ -6,7 +6,7 @@ angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthServi
   register.user.roles = ["citizen"];
 
   register.newAccount = AppService.isNewAccount();
-  console.log('register.newAccount : '+register.newAccount);
+  //console.log('register.newAccount : '+register.newAccount);
 
   register.rec = function connect() {
     delete register.error;
