@@ -1,4 +1,4 @@
-angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthService, AppService, $http, $log, $state) {
+angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthService, AppService, $http, $log, $state, $scope) {
   var register = this;
 
   register.user = {};
@@ -23,4 +23,9 @@ angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthServi
       $log.error(error);
     })
   }
+
+  // Watch any event
+  $scope.$watch(function() {
+    register.newAccount = AppService.isNewAccount();
+  });
 });
