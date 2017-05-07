@@ -20,15 +20,16 @@ function(AuthService, $http, $scope, $log, $state, AppService, $stateParams) {
         {id: 4, label: "Rejeté", value: "rejected", option: "S"} ];
 
     /*listTags = AppService.getListTags(); 
-    id = 5; 
-    listTags.forEach(function(test) {
-        if (element)
+    id = 5; //Due to the fixed id in filter (new, inProgress, resolved and rejected)
+    listTags.forEach(function(element) {
+        if (element) //if tag has a value 
         {
-            console.log('Filtres en place: '+ element);
+            console.log('Filtres tag en place: '+ element);
             item.issuesFilter.push('id:' id', label:' element', option: "Tag"');
             id +=1;
         }
     };*/
+
     
     item.issuesFilterSelectAllSettings = {
         enableSearch: true,
