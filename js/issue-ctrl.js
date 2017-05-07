@@ -16,24 +16,46 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
-    //console.log('issueCtrl get list issue');
+    issue.filtersType = AppService.getFiltersType();
     console.dir(issue.filtersType);
     var qBody = {};
+    issue.filterStatus = [];
+    issue.filterTag = [];
     if(issue.filtersType.length>0){
-      qBody.state =  {
-        "$in": issue.filtersType
+      issue.filtersType.forEach(function(e)
+      {
+        switch(e.option)
+        {
+          case 'S':
+            issue.filterStatus.push(e.value);
+            break;
+          case 'T':
+            issue.filterTag.push(e.value);
+            break;
+          default:
+        }
+      });
+      if(issue.filterStatus.length > 0){
+        qBody.state =  {
+          "$in": issue.filterStatus
+        }
+      }
+      if(issue.filterTag.length > 0){
+        qBody.tags =  {
+          "$in": issue.filterTag
       }
     }
-    // Search around our location
-    var searchCoords = AppService.getMapSearchCoordinates();
-    qBody.location =  {
-      "$geoWithin": {
-        "$centerSphere" : [
-          [ searchCoords.lng , searchCoords.lat ],
-          0.002
-        ]
-      }
+  }
+  // Search around our location
+  var searchCoords = AppService.getMapSearchCoordinates();
+  qBody.location =  {
+    "$geoWithin": {
+      "$centerSphere" : [
+        [ searchCoords.lng , searchCoords.lat ],
+        0.002
+      ]
     }
+  }
 
     var qData = {};
     qData.pageSize = 25;
@@ -46,9 +68,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       data: qBody
     }).then(function(res) {
       issue.listIssues = res.data;
-      console.dir(res.data);
       // add markers on map
-     issue.listIssues.forEach(function(element) {
+      issue.listIssues.forEach(function(element) {
         // Push issues in AppService
         AppService.setIssues(issue.listIssues);
       });
