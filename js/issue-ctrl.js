@@ -17,16 +17,36 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     //console.log('issueCtrl get list issue');
-    //console.dir(issue.filtersType);
+    console.dir(issue.filtersType);
+    var qBody = {};
+    if(issue.filtersType.length>0){
+      qBody.state =  {
+        "state": {
+          "$in": issue.filtersType
+        }
+      }
+    }
+    // Search around our location
+    var searchCoords = AppService.getMapSearchCoordinates();
+    console.dir(searchCoords);
+    qBody.location =  {
+      "$geoWithin": {
+        "$centerSphere" : [
+          [ searchCoords.lng , searchCoords.lat ],
+          0.002
+        ]
+      }
+    }
+    console.dir(qBody);
     var qData = {};
-    qData.pageSize = 50;
-    qData.state = issue.filtersType;
-    qData.include = ['creator','assignee'];
+    qData.pageSize = 25;
+    qData.include = ['creator','assignee','actions','assignee'];
     delete issue.error;
     $http({
-      method: 'GET',
-      url: apiUrl+'/api/issues',
-      params: qData
+      method: 'POST',
+      url: apiUrl+'/api/issues/searches',
+      params: qData,
+      data: qBody
     }).then(function(res) {
       issue.listIssues = res.data;
       console.dir(res.data);
@@ -230,7 +250,14 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
           oldFilter = issue.filtersType.length;
           issue.getListIssues();
         }
-        //issue.getListIssues();
+        // If a new issue list is asked (when map move)
+        if(AppService.getReloadIssueList()){
+          // Reload issue list 
+          issue.getListIssues();
+          // Reset the flag
+          AppService.setReloadIssueList(false);
+          console.log('reload Issue list');
+        }
     });
 
   issue.isStaff = AuthService.getStaff();

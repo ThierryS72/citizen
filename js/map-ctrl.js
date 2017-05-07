@@ -39,6 +39,7 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     if((Math.abs(coords.lat-lastCoords.lat) > 0.002) || (Math.abs(coords.lng-lastCoords.lng) > 0.01)){
       console.log('checkCoordsNewSearch : should reload !');
       AppService.setMapSearchCoordinates(coords);
+      AppService.setReloadIssueList(true);
     }
   }
 
@@ -46,9 +47,6 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
   $geolocation.getCurrentPosition()
     .then(function (position) {
       // This will be executed when the location is accessed
-      //console.log(position);
-      //console.log("Lat : "+ position.coords.latitude);
-      //console.log("Long : "+ position.coords.longitude);
       map.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,

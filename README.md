@@ -2,7 +2,7 @@
 
 ## Sources et auteurs
 [repo]: https://github.com/ThierryS72/citizen
-Auteurs : [Thierry](https://github.com/ThierryS72)Thierry et [Olivier](https://github.com/olivierwen)
+Auteurs : [Thierry](https://github.com/ThierryS72) et [Olivier](https://github.com/olivierwen)
 
 ## Mise en route
 Pour lancer l'application : `live-server --entry-file=index.html`
