@@ -1,5 +1,6 @@
 angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthService, AppService, $http, $log, $state, $scope) {
   var register = this;
+  var apiUrl = AppService.getCitizenApiUrl();
 
   register.user = {};
   register.user.roles = ["citizen"];
@@ -12,7 +13,7 @@ angular.module('app').controller('RegisterCtrl', function RegisterCtrl(AuthServi
 
     $http({
       method: 'POST',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/users',
+      url: apiUrl+'/api/users',
       data: register.user
     }).then(function(res) {
       AuthService.setToken(res.data.token);

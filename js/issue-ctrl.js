@@ -1,7 +1,7 @@
 // Controller for actions around issues (list/search/add/modify)
 angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams, $scope) {
   var issue = this;
-
+  var apiUrl = AppService.getCitizenApiUrl();
   issue.listIssues = {};
   issue.newIssue =  {};
   issue.newComment = {};
@@ -25,7 +25,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     delete issue.error;
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',
+      url: apiUrl+'/api/issues',
       params: qData
     }).then(function(res) {
       issue.listIssues = res.data;
@@ -48,7 +48,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     delete issue.error;
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issueTypes'
+      url: apiUrl+'/api/issueTypes'
     }).then(function(res) {
       issue.types = res.data;
     }).catch(function(error) {
@@ -68,7 +68,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     qData.include = ['creator','assignee'];
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id,
+      url: apiUrl+'/api/issues/'+id,
       params: qData
     }).then(function(res) {
       issue.detail = res.data;
@@ -88,7 +88,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     qData.include = ['author'];
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments',
+      url: apiUrl+'/api/issues/'+id+'/comments',
       params: qData
     }).then(function(res) {
       issue.listComments = res.data;
@@ -104,7 +104,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     delete issue.error;
     $http({
       method: 'GET',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/actions'
+      url: apiUrl+'/api/issues/'+id+'/actions'
     }).then(function(res) {
       issue.Actions = res.data;
       console.log('issue actions '+id+' nb : '+issue.Actions.length);
@@ -122,7 +122,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       issue.newComment.id = id;
       $http({
         method: 'POST',
-        url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id+'/comments',
+        url: apiUrl+'/api/issues/'+id+'/comments',
         data: issue.newComment
       }).then(function(res) {
         issue.comments(id);
@@ -155,7 +155,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     //console.log('Add an issue');
     $http({
       method: 'POST',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues',
+      url: apiUrl+'/api/issues',
       data: issue.newIssue
     }).then(function(res) {
       AppService.newMarker = false;
@@ -173,7 +173,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     console.log('Delete an issue '+id);
     $http({
       method: 'DELETE',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+id
+      url: apiUrl+'/api/issues/'+id
     }).then(function(res) {
       // refresh list
       issue.getListIssues();
@@ -193,7 +193,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
     };
     $http({
       method: 'POST',
-      url: 'https://masrad-dfa-2017-a.herokuapp.com/api/issues/'+IssueId+'/actions',
+      url: apiUrl+'/api/issues/'+IssueId+'/actions',
       data: issue.setAction
     }).then(function(res) {
     }).catch(function(error) {

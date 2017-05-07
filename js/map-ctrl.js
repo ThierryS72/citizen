@@ -32,6 +32,16 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     console.log('clickMarker : '+id);
   }
 
+  // Compare coordinates with last issue search coordinates and ask a new query if needed
+  map.checkCoordsNewSearch = function checkCoordsNewSearch(coords){
+    var lastCoords = AppService.getMapSearchCoordinates();
+    // Check move diff
+    if((Math.abs(coords.lat-lastCoords.lat) > 0.002) || (Math.abs(coords.lng-lastCoords.lng) > 0.01)){
+      console.log('checkCoordsNewSearch : should reload !');
+      AppService.setMapSearchCoordinates(coords);
+    }
+  }
+
   // Try to get coordinates of visitor and center map on it
   $geolocation.getCurrentPosition()
     .then(function (position) {
@@ -78,6 +88,14 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     // recenter map
     map.center = AppService.setMapCenter(wrap.leafletEvent.latlng.lat,wrap.leafletEvent.latlng.lng);
   });
+
+  // On drag get coordinates and compare to last search coordinates
+   $scope.$on('leafletDirectiveMap.moveend', function(event, args){
+     var coords = args.leafletEvent.target.getCenter();
+     coords.zoom = args.leafletEvent.target.getZoom();
+     map.checkCoordsNewSearch(coords);
+      //console.log('Drag lat : ' + coords.lat + ' lng : '+ coords.lng);// + wrap.leafletEvent.latlng.lat + ", " + wrap.leafletEvent.latlng.lng);
+    });
 
   // Watch any event
   $scope.$watch(function() {
