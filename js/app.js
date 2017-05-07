@@ -5,6 +5,7 @@ angular.module('app', [
   'leaflet-directive',
   'ngGeolocation',
   'angularjs-dropdown-multiselect',
+  'ngTagsInput'
 ]);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $logProvider, $locationProvider) {

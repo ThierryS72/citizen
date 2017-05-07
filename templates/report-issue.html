@@ -1,6 +1,6 @@
 <!-- Formulary to declare an issue -->
-<h1>Déclarer une issue</h1>
 <form id="addIssue" class="panel panel-default col-md-4" name="issueForm" style ="margin-top:20px;">
+	<h1>Déclarer une issue</h1>
 	<div class="form-group">
 		<label for="desc">Description</label>
 		<textarea required type="text" id="desc" class="form-control" ng-model="issue.newIssue.description"></textarea>
@@ -18,14 +18,18 @@
 	</div>
 	<div class="form-group">
 		<label for="tag">Mots clés (optionel)</label>
-		<textarea type="text" id="tag" class="form-control" ng-model="issue.newIssue.tag"></textarea>
+		<tags-input ng-model="issue.newIssue.tags"></tags-input>
+	</div>
+	<div class="form-group">
+		<input required type="hidden" class="form-control" ng-model="issue.coordinates.lng">
+		<input required type="hidden" class="form-control" ng-model="issue.coordinates.lat">
 	</div>
 	<div style ="padding-bottom:10px;">
-	<button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
+		<button class="btn btn-error" ng-disabled="registerForm.$invalid" ng-click="issue.addIssue()">Déclarer un problème</button>
 	</div>
 </form>
-<div class="alert alert-danger" ng-if="register.error">
-	{{register.error}}
+<div class="alert alert-danger" ng-if="issue.error">
+	{{issue.error}}
 </div>
 <div id="map_layout" ng-controller="MapCtrl as map"><!--display map in foreground-->
 	<leaflet width="100%" height="100vh" defaults="map.defaults" lf-center="map.center" markers="map.markers"></leaflet>

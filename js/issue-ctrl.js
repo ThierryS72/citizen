@@ -185,12 +185,13 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       ],
       "type": "Point"
     };
-    issue.newIssue.tag = {
-      "tags": [
-        issue.tag
-      ],
-    };
-    //console.log('Add an issue');
+    // Reformat tags [ { text: 'glace' }, { text: 'lac' }, { text: 'joux' } ] to [ 'glace','lac' ,'joux']
+    var tmpTags = issue.newIssue.tags;
+    issue.newIssue.tags = [];
+    tmpTags.forEach(function(t){
+      issue.newIssue.tags.push(t.text);
+    });
+
     $http({
       method: 'POST',
       url: apiUrl+'/api/issues',
@@ -199,7 +200,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       AppService.newMarker = false;
       $state.go('home');
     }).catch(function(error) {
-      issue.error = "Impossible d'ajouter une issue";
+      issue.error = "Impossible d'ajouter un problème ! Avez-vous sélectionné un emplacement sur la carte ?";
       $log.error(error);
     })
   }
@@ -261,22 +262,21 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
 
   // watch any event in the scope
   $scope.$watch(function() {
-        //console.log('watch refresh issue');
-        issue.filtersType = AppService.getFiltersType();
-        if(oldFilter != issue.filtersType.length){
-          console.log('DEBUG filter change !');
-          oldFilter = issue.filtersType.length;
-          issue.getListIssues();
-        }
-        // If a new issue list is asked (when map move)
-        if(AppService.getReloadIssueList()){
-          // Reload issue list 
-          issue.getListIssues();
-          // Reset the flag
-          AppService.setReloadIssueList(false);
-          console.log('reload Issue list');
-        }
-    });
+    //console.log('watch refresh issue');
+    issue.filtersType = AppService.getFiltersType();
+    if(oldFilter != issue.filtersType.length){
+      oldFilter = issue.filtersType.length;
+      issue.getListIssues();
+    }
+    // If a new issue list is asked (when map move)
+    if(AppService.getReloadIssueList()){
+      // Reload issue list 
+      issue.getListIssues();
+      // Reset the flag
+      AppService.setReloadIssueList(false);
+      console.log('reload Issue list');
+    }
+  });
 
   issue.isStaff = AuthService.getStaff();
 });
