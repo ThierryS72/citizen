@@ -82,7 +82,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   issue.details = function details(id) {
     delete issue.error;
     var qData = {};
-    qData.include = ['creator','assignee'];
+    qData.include = ['creator','assignee','actions','issueType'];
     $http({
       method: 'GET',
       url: apiUrl+'/api/issues/'+id,

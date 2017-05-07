@@ -5,23 +5,26 @@
 		table-striped
 		table-hover">
 		<tr>
-      <td>Description</td><td>Mots clés</td><td>Etat</td><td>Mis à jour</td><td>Créé le</td>
+      <td>Description</td><td ng-if="issue.detail.tags.length > 0">Mots clés</td><td>Etat</td><td>Mis à jour</td><td>Créé le</td><td>Type</td>
 			<td ng-if="(issue.detail.imageUrl)">Image</td>
     </tr>
     <tr>
       <td>{{ issue.detail.description }}</td>
-      <td>{{ issue.detail.tag }}</td>
+      <td ng-if="issue.detail.tags.length > 0">
+				<span class="badge" ng-repeat="tag in issue.detail.tags">{{ tag }}</span>
+			</td>
 			<td>{{ issue.detail.state }}</td>
       <td>{{ issue.detail.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
       <td>{{ issue.detail.createdAt | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.detail.creator.name }}</td>
-      <td>
+			<td>{{ issue.detail.issueType.name }}</td>
+      <td ng-if="(issue.detail.imageUrl)">
 				<!--
 				<a href="#" id="pop">
 					<img id="imageresource" src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
 					Cliquer pour agrandir
 				</a>
 				-->
-				<a href="#" class="pop" ng-if="(issue.detail.imageUrl)">
+				<a href="#" class="pop">
     			<img src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
 				</a>
 			</td>
