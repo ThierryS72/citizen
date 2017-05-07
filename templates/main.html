@@ -9,7 +9,7 @@
 					<p class="list-group-item-text">{{ issue.description }}</p>
 					</div>
 					<div class="alert media-right">
-					<img class="img-circle" src="{{ issue.imageUrl }}" width="75" height="75"/>
+					<img class="img-circle" src="{{ issue.imageUrl }}" width="75" height="75" ng-if="(issue.imageUrl)"/>
 					</div>
 				</div>
 			</a>

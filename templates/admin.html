@@ -26,7 +26,7 @@
 							<button class="btn btn-danger" ng-click="issue.deleteIssue(i.id)">Supprimer</button>
 						</div>
 						<div class="alert media-right">
-							<img class="img-circle" align="right" src="{{ i.imageUrl }}" width="50" height="50"/>
+							<img class="img-circle" align="right" src="{{ i.imageUrl }}" width="50" height="50" ng-if="(i.imageUrl)"/>
 						</div>
 					</a>
 				</div>

@@ -5,7 +5,8 @@
 		table-striped
 		table-hover">
 		<tr>
-      <td>Description</td><td>Mots clés</td><td>Etat</td><td>Mis à jour</td><td>Créé le</td><td>Image</td>
+      <td>Description</td><td>Mots clés</td><td>Etat</td><td>Mis à jour</td><td>Créé le</td>
+			<td ng-if="(issue.detail.imageUrl)">Image</td>
     </tr>
     <tr>
       <td>{{ issue.detail.description }}</td>
@@ -20,7 +21,7 @@
 					Clicker pour agrandir
 				</a>
 				-->
-				<a href="#" class="pop">
+				<a href="#" class="pop" ng-if="(issue.detail.imageUrl)">
     			<img src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
 				</a>
 			</td>

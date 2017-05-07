@@ -32,8 +32,8 @@
 					 	<span class="small">Etat: {{ issue.state }}</span>
 					  	<p class="list-group-item-text">{{ issue.description }}</p>
 					</div>
-					  	<div class="alert media-right">
-					  	<img class="img-circle" align="right" src="{{ issue.imageUrl }}" width="65" height="65"/>
+					  	<div class="alert media-right ">
+					  	<img class="img-circle" align="right" src="{{ issue.imageUrl }}" width="65" height="65" ng-if="(issue.imageUrl)"/>
 					</div>
 				</div>
 			</a>
