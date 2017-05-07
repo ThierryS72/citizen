@@ -11,3 +11,5 @@ Définition de l'url dans la variable apiUrl de AppService.
 ## Mode d'emploi
 Le mode d'emploi est en ligne (how-to-use.html)
 
+## Application "Responsive"
+Au stade actuel du dévelopement notre application n'est pas encore totalement "Responsive"
