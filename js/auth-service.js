@@ -21,8 +21,7 @@ angular.module('app').factory('AuthService', function AuthService(store) {
     staff: store.get('auth-staff'),
     setStaff: function(status) {
       service.staff = status,
-      store.set('auth-staff', status),
-      console.log('setStaff : '+status)
+      store.set('auth-staff', status)
     },
     getStaff: function() {
       return service.staff;

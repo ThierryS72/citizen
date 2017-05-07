@@ -16,7 +16,7 @@
 			<td>{{ issue.detail.state }}</td>
       <td>{{ issue.detail.updatedAt | date: 'dd/MM/yyyy HH:mm'}}</td>
       <td>{{ issue.detail.createdAt | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.detail.creator.name }}</td>
-			<td>{{ issue.detail.issueType.name }}</td>
+			<td>{{ issue.detail.issueType.description }}</td>
       <td ng-if="(issue.detail.imageUrl)">
 				<!--
 				<a href="#" id="pop">

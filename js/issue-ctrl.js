@@ -17,7 +17,6 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // Get issues (default paging is 20) - result in issue.listIssues
   issue.getListIssues = function list() {
     issue.filtersType = AppService.getFiltersType();
-    console.dir(issue.filtersType);
     var qBody = {};
     issue.filterStatus = [];
     issue.filterTag = [];
@@ -82,6 +81,8 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   // get info about me
   var login = {};
   login.infoMe = AppService.getUserInfo();  
+
+  // Get IssueTypes
   issue.type = function type() {
     delete issue.error;
     $http({

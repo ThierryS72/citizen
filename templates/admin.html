@@ -4,17 +4,37 @@
 		<div class="panel panel-default col-md-6" ng-if="admin.listActions.length > 0">
 			<h2>Historique des actions</h2>
 			<div class="list-group alert" ng-repeat="a in admin.listActions" ng-class="{'alert-warning': a.type=='start', 'alert-success': a.type=='resolve', 'alert-danger': a.type=='reject', 'alert-secondary': a.type=='new'}">
-				<a class="list-group-item">
+				<a ui-sref="details({ id:a.issue.id })" class="list-group-item">
 					<span class="small">Etat: {{ a.type }} par {{ a.user.name }}</span>
 					<p class="list-group-item-text">{{ a.reason }}</p>
 				</a>
 			</div>
 		</div>
+		<div class="panel panel-default col-md-6">
+			<h2>Types d'actions</h2>
+			<div class="list-group-item" ng-repeat="t in admin.issuesTypes">
+				<span>{{ t.description }}</span>
+				<button class="btn btn-warning pull-right btn-xs" ng-click="admin.displayIssueTypeForm(t.id)">Modifier</button>
+			</div>
+			<button class="btn btn-secondary btn-xs" ng-click="admin.displayIssueTypeForm()" ng-if="!(admin.addIssueForm)">Ajouter un type</button>
+			<form class="from" ng-if="admin.addIssueForm">
+				<div class="form-group">
+					<label for="name">Nom</label>
+					<input type="text" required class="form-control" id="name" ng-model="admin.newIssueType.name">
+				</div>
+				<div class="form-group">
+					<label for="description">Description</label>
+					<input type="text" required class="form-control" id="description" ng-model="admin.newIssueType.description">
+				</div>
+				<button class="btn btn-warning btn-xs" ng-click="admin.updateNewIssueType()" ng-if="(admin.newIssueType.id != undefined)">Modifier ce type</button>
+				<button class="btn btn-success btn-xs" ng-click="admin.addNewIssueType()" ng-if="(admin.newIssueType.id == undefined)">Ajouter un type</button>
+			</form>
+		</div>
 		<div ng-controller="IssueCtrl as issue" >
 			<div class="panel panel-default col-md-6" ng-if="(issue.listIssues.length > 0)">
 				<h2>Actions en cours</h2>
 				<div class="list-group alert alert-success" ng-repeat="i in issue.listIssues | limitTo: admin.limit" style ="background-color:azure">
-					<a class="list-group-item media" ui-sref-active="active" >
+					<a class="list-group-item media" ui-sref="details({ id:i.id })" ui-sref-active="active" >
 						<div  class="media-body">
 							<span class="small pull-right">Dernière mise à jour: {{ i.updatedAt | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
 							<span class="small">Etat: {{ i.state }} {{ i.assignee.name }}</span>
