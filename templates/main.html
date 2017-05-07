@@ -1,23 +1,8 @@
-<!--
-<div class="container">
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" ui-sref="report-issue">Déclarer un problème</a></li>
-  </ul>
-</div>
--->
 <div class="container">
   <ul class="nav nav-pills">
 		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 		<li><a data-toggle="pill" ui-sref="report-issue">Déclarer un problème</a></li>
   </ul>
-</div>
-
-<div class="tab-content">
-	<div id="report" class="tab-pane fade in acive">
-		<h3>Menu 1</h3>
-		<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	</div>
 </div>
 
 <div id="" class="container" ng-controller="ListCtrl as s">
@@ -31,7 +16,7 @@
 </div>
 
 <div ng-if="(issue.listIssues.length > 0)">  
-	<section class="panel panel-info col-md-4" style ="background-color:coral">
+	<section class="panel panel-info col-md-4" style ="background-color:coral;">
 		<div class="list-group alert alert-success media" ng-repeat="issue in issue.listIssues | limitTo: issue.limit">
 			<a class="list-group-item" ui-sref="details({ id:issue.id })" ui-sref-active="active">
 				<div class="alert media-body" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved', 'alert-danger': issue.state=='rejected', 'alert-secondary': issue.state=='new'}">
@@ -46,7 +31,7 @@
 				</div>
 			</a>
 		</div>
-		<div>
+		<div style ="padding-bottom:30px;">
 		<button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
 		</div>
 	</section>
