@@ -13,6 +13,7 @@ main {
    overflow: hidden;
    z-index: -1; /*to have the map in foreground*/
  }
+
 /*Filtres always at the same position on the page*/
 #ui {
   position: fixed;
