@@ -1,6 +1,6 @@
 angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state, $scope) {
   var login = this;
-  var apiUrl = 'https://masrad-dfa-2017-a.herokuapp.com';
+  var apiUrl = AppService.getCitizenApiUrl();
   var oldConnected = false;
 
   login.user = {};

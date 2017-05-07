@@ -1,5 +1,9 @@
 angular.module('app').factory('AppService', function (AuthService, $http, $log, $state) {
   var AppService = this;
+
+  // Set here the API url !
+  var apiUrl = 'https://masrad-dfa-2017-a.herokuapp.com';
+
   // icons for map's marker
   var mapIcons = {
     defaultIcon: {
@@ -81,7 +85,9 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
     lng: 6.641183,
     zoom: 15 // This one is actually optional
   
-}
+  }
+  // mapSearchCoordinates keep last search issue query coordinates - used to reload issues at the right time
+  var mapSearchCoordinates = mapCenter;
   return {
         getMarkers: function () {
             return markers;
@@ -101,7 +107,14 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         }, 
         getMapCenter: function () {
             return mapCenter;
-        },   
+        },
+        setMapSearchCoordinates: function(){
+            mapSearchCoordinates = mapCenter;
+            return mapSearchCoordinates;
+        }, 
+        getMapSearchCoordinates: function () {
+            return mapSearchCoordinates;
+        },
         // Update coordinates of a marker (id)
         ajustMarkerCoords: function(id, lat, lng){
             markers[id].lat = lat;
@@ -114,6 +127,9 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
         // get Filters type
         getFiltersType: function (){
             return filters.type;
+        },// get API Url
+        getCitizenApiUrl: function (){
+            return apiUrl;
         },
         setIssues: function(issues) {
             markers = [];

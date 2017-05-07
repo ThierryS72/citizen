@@ -1,6 +1,6 @@
 angular.module('app').controller('AdminCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state) {
     admin = this;
-    var apiUrl = 'https://masrad-dfa-2017-a.herokuapp.com';
+    var apiUrl = AppService.getCitizenApiUrl();
     admin.limit = 10;
     admin.users = {};
 
