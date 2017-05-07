@@ -1,6 +1,7 @@
-angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state) {
+angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, AuthService, $http, $log, $state, $scope) {
   var login = this;
   var apiUrl = 'https://masrad-dfa-2017-a.herokuapp.com';
+  var oldConnected = false;
 
   login.user = {};
 
@@ -26,9 +27,13 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     })
   } 
 
+  // logout = disconnect and reset all users var through service
   login.disconnect = function() {
     AuthService.unsetToken();
     AuthService.setLogged(false);
+    AuthService.setStaff(false);
+    AppService.setNewAccount(false);
+    login.infoMe = {};
     $state.go('login');
   }
 
@@ -40,18 +45,17 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
       url: apiUrl+'/api/me'
     }).then(function(res) {
       login.infoMe = res.data;      
-      login.isStaff = AuthService.getStaff();
+      login.isStaffCheck();
       AppService.setUserInfo(login.infoMe);
     }).catch(function(error) {
-      login.error = "Error";
-      $log.error(error);
+      login.error = "Erreur lors du chargement du profil";
+      //$log.error(error);
     })
   } 
 
   // Check if it's a staff member
-  login.isStaff = function() {
+  login.isStaffCheck = function isStaffCheck() {
     AuthService.setStaff(false);
-    //console.dir(login.infoMe);
     login.infoMe.roles.forEach(function(role)
     {
       if(role == "staff")
@@ -74,7 +78,7 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     }).then(function(res) {
       AppService.setUserInfo(login.infoMe);
     }).catch(function(error) {
-      login.error = "Error";
+      login.error = "Erreur durant la mise à jour du profil";
       $log.error(error);
     })
   }
@@ -94,8 +98,15 @@ angular.module('app').controller('LoginCtrl', function LoginCtrl(AppService, Aut
     })
   }
 
-  login.isConnected = AuthService.getLogged();
-  login.isStaff = AuthService.getStaff();
-  login.setInfoMe();
-  login.myIssues();
+   // Watch any event (there is two controllers involved in navbar : LoginCtrl and RegisterCtrl so exchange data with services)
+    $scope.$watch(function() {
+      oldConnected = login.isConnected;
+      login.isConnected = AuthService.getLogged();
+      login.newAccount = AppService.isNewAccount();
+      login.isStaff = AuthService.getStaff();
+      if((oldConnected != login.isConnected) && login.isConnected){
+        login.setInfoMe();
+        login.myIssues();
+      }
+    });
 });

@@ -79,18 +79,11 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
     map.center = AppService.setMapCenter(wrap.leafletEvent.latlng.lat,wrap.leafletEvent.latlng.lng);
   });
 
-  $scope.$watch('map.markers',
-    function() {
-        // callback function
-        //console.log('watch map.markers');
-    }, 
-    true);
-
-    // Watch any event
-    $scope.$watch(function() {
-        //console.log('watch refresh markers');
-        map.center = AppService.getMapCenter();
-        // reload markers
-        map.markers = AppService.getMarkers();
-    });
+  // Watch any event
+  $scope.$watch(function() {
+    //console.log('watch refresh markers');
+    map.center = AppService.getMapCenter();
+    // reload markers
+    map.markers = AppService.getMarkers();
+  });
 });
