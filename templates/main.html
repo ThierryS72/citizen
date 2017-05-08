@@ -5,7 +5,7 @@
 				<div class="alert media-body" ng-class="{'alert-warning': issue.state=='inProgress', 'alert-success': issue.state=='resolved',
 				 'alert-danger': issue.state=='rejected', 'alert-info': issue.state=='new'}">
 					<div class="media-body">
-						<span class="small pull-right">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.creator.name }}</span>
+						<span class="small">Date: {{ issue.updatedAt  | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.creator.name }}</span>
 						<p class="list-group-item-text">{{ issue.description }}</p>
 					</div>
 					<div class="alert media-right">
@@ -15,7 +15,7 @@
 			</a>
 		</div>
 		<div style ="padding-top: 10px; padding-bottom:50px;">
-			<button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage</button>
+			<button ng-click="issue.displayMore()" class="btn btn-primary">Afficher davantage <span class="glyphicon glyphicon-chevron-down"></span></button>
 		</div>
 	</div>
 	<div id="ui" class="container" ng-controller="ListCtrl as s">

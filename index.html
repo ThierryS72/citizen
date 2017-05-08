@@ -19,7 +19,7 @@
   <body ng-app='app'>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-				<a class="navbar-brand" ui-sref="home">Citizen App</a>
+				<a class="navbar-brand" ui-sref="home"><span class="glyphicon glyphicon-fire"></span> Citizen App</a>
 				<ul class="nav navbar-nav">
 						<li><a ui-sref="how-to-use">Comment utiliser l'app</a></li>
 						<li><a ui-sref="about">A propos</a></li>
@@ -28,10 +28,10 @@
 					<ul class="nav navbar-nav">
 						<li ng-if="(!login.isConnected)"><a ui-sref="register">S'enregistrer</a></li>
 						<li ng-if="login.isStaff"><a ui-sref="admin">Administration</a></li>
-						<li class="active"><a ui-sref="citizen">Mon compte {{login.infoMe.firstname}}</a></li>
+						<li class="active"><a ui-sref="citizen">Mon compte <span class="badge">{{login.infoMe.firstname}}</span><span class="glyphicon glyphicon-wrench"></span></a></li>
 					</ul>
 					<a class="btn btn-warning navbar-btn" ui-sref="login" ng-if="(!login.isConnected)">Se connecter</a>
-					<a class="btn btn-info navbar-btn" ui-sref="login" ng-click="login.disconnect()" ng-if="(login.isConnected)">Se déconnecter</a>
+					<a class="btn btn-info navbar-btn" ui-sref="login" ng-click="login.disconnect()" ng-if="(login.isConnected)">Se déconnecter <span class="glyphicon glyphicon-new-window"></span></a>
 				</div>
 			</div>
 		</nav>
@@ -45,7 +45,7 @@
       <div class="container">
         <button class="btn btn-default navbar-btn" ui-sref="privacy">politique de confidentialité</button>
         <div class="navbar-right">
-            <p class="navbar-text">&copy; 2017 - Olivier Wenger &amp; Thierry Sémon</p>
+            <p class="navbar-text"><span class="glyphicon glyphicon-copyright-mark"></span> 2017 - Olivier Wenger &amp; Thierry Sémon</p>
         </div>
       </div>
     </nav>

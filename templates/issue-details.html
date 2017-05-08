@@ -19,7 +19,7 @@
 			<td>{{ issue.detail.issueType.description }}</td>
       <td ng-if="(issue.detail.imageUrl)">
 				<a href="#" class="pop">
-    			<img src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
+    			<img class="img-circle" src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
 				</a>
 			</td>
     </tr>
@@ -41,7 +41,7 @@
 		</table>
 	</div>
 	<!-- Add comment on issues -->
-  <h3>Ajouter un commentaire</h3>
+  <h3>Ajouter un commentaire <span class="glyphicon glyphicon-comment"></span></h3>
   <input required type="text" data-minlength="2" id="text" class="form-control" ng-model="issue.newComment.text">
 	<button class="btn btn-success" ng-click="issue.addComment(issue.detail.id)">Ajouter un commentaire</button>
   <div ng-if="issue.Actions.length > 0">

@@ -166,7 +166,7 @@ angular.module('app').factory('AppService', function (AuthService, $http, $log, 
                 // Hide picture if no picture
                 if(element.imageUrl)
                 {
-                    img = "<img src=\""+element.imageUrl+"\" width=\"50\" height=\"50\"/>";
+                    img = "<br /><img class=\"img-circle\" src=\""+element.imageUrl+"\" width=\"50\" height=\"50\"/>";
                 } else {
                     img = "";
                 }
