@@ -45,13 +45,16 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       }
     }
   }
-  // Search around our location
+  // Search around our location - TODO : should we disable geo when filters set ?
   var searchCoords = AppService.getMapSearchCoordinates();
+  // take zoom in consideration
+  var area = 0.002 / (searchCoords.zoom/150);
+  //console.log('area : '+area);
   qBody.location =  {
     "$geoWithin": {
       "$centerSphere" : [
         [ searchCoords.lng , searchCoords.lat ],
-        0.002
+        area
       ]
     }
   }
@@ -275,7 +278,7 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
       issue.getListIssues();
       // Reset the flag
       AppService.setReloadIssueList(false);
-      console.log('reload Issue list');
+      //console.log('reload Issue list');
     }
   });
 

@@ -52,11 +52,12 @@ angular.module('app').controller('MapCtrl', function($scope, $geolocation, AppSe
         lng: position.coords.longitude,
         zoom: 15
       }
+      console.log('geoloc ok');
     }, function (error) {
       // This will be executed if the user denies access
       // or the browser doesn't support the Geolocation API
       map.center = AppService.getMapCenter();
-      //console.log(error);
+      console.log('geoloc ko : '+error);
     });
 
   // get geoJson coordinates when click on map and add/adjust a new marker
