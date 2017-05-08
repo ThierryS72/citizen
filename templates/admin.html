@@ -57,12 +57,12 @@
 			<h2>Liste des utilisateurs</h2>
 			<div class="panel panel-default" ng-repeat="u in admin.users | limitTo: admin.limit">
 				<div class="panel-heading">
-					<h3 class="panel-title">Détails pour {{ u.lastname }} {{ u.firstname }}</h3>
+					<h3 class="panel-title">Détails pour {{ u.lastname }} {{ u.firstname }} <button class="btn btn-success align-right" ng-click="admin.putInStaff(u.href)">Mettre en staff</button></h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" style="padding-bottom: 0px;">
 					<dl class="dl-horizontal">
 					<dt>Nom de famille</dt>
-					<dd>{{ u.firstname }} <button class="btn btn-success align-right" ng-click="admin.putInStaff(u.href)">Mettre en staff</button></dd>
+					<dd>{{ u.firstname}}</dd>
 					<dt>Prénom</dt>
 					<dd>{{ u.lastname }}</dd>
 					<dt>Identifiant</dt>
@@ -73,6 +73,7 @@
 					<dd ng-repeat="r in u.roles">
 						{{ r }}
 					</dd>
+					</dl>
 				</div>
 			</div>
 			<button ng-click="admin.displayMore()" class="btn btn-primary">Afficher davantage</button>

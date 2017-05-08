@@ -18,12 +18,6 @@
       <td>{{ issue.detail.createdAt | date: 'dd/MM/yyyy HH:mm'}} par {{ issue.detail.creator.name }}</td>
 			<td>{{ issue.detail.issueType.description }}</td>
       <td ng-if="(issue.detail.imageUrl)">
-				<!--
-				<a href="#" id="pop">
-					<img id="imageresource" src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
-					Cliquer pour agrandir
-				</a>
-				-->
 				<a href="#" class="pop">
     			<img src="{{ issue.detail.imageUrl }}" width="100" height="100"/>
 				</a>

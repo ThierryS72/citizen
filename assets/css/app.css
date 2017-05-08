@@ -22,3 +22,10 @@ main {
   left: 0px;
   width: 400px;
 }
+
+/*Design for users list*/
+.dl-horizontal dt 
+{
+    white-space: normal;
+    width: 150px;
+}
