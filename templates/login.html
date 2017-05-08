@@ -16,7 +16,7 @@
   <div class="alert alert-danger col-md-6 col-md-offset-3" ng-if="login.error">
     {{login.error}}
   </div>
-  <div ng-controller="RegisterCtrl as register">
+  <div class="form-group" ng-controller="RegisterCtrl as register" style="padding-bottom: 80px;">
     <h3 ng-if="(register.newAccount)">Tu peux te connecter à présent {{register.user.name}} !</h3>
     <h2>S'enregistrer</h2>
     <form id="register" name="registerForm">
@@ -40,7 +40,9 @@
 				<label for="phone">Téléphone</label>
 				<input required type="text" data-minlength="6" id="phone" class="form-control" ng-model="register.user.phone">
 			</div>
-			<button class="btn btn-info" ng-disabled="registerForm.$invalid" ng-click="register.rec()">S'inscrire</button>
+			<div>
+				<button class="btn btn-info" ng-disabled="registerForm.$invalid" ng-click="register.rec()">S'inscrire</button>
+			</div>
 		</form>
 		<div class="alert alert-danger" ng-if="register.error">
 			{{register.error}}
