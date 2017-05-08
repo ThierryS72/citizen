@@ -1,5 +1,5 @@
 // Controller for actions around issues (list/search/add/modify)
-angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams, $scope) {
+angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $http, $log, $state, AppService, $stateParams, $scope ,$mdDialog) {
   var issue = this;
   var apiUrl = AppService.getCitizenApiUrl();
   issue.listIssues = {};
@@ -280,4 +280,35 @@ angular.module('app').controller('IssueCtrl', function IssueCtrl(AuthService, $h
   });
 
   issue.isStaff = AuthService.getStaff();
+
+  // Popup for image using ngMaterial
+  $scope.showAdvanced = function(ev) {
+    $mdDialog.show({
+      controller: DialogController,
+      template: '<img src="'+issue.detail.imageUrl+'" />',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+    .then(function(answer) {
+
+    }, function() {
+
+    });
+  };
+
+  function DialogController($scope, $mdDialog) {
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
+  }
 });
